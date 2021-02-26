@@ -15,12 +15,13 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from monitoreo import views as monitoreo_views
 #from django.views.generic import RedirectView
-#from django.conf import settings
+from django.conf import settings
 #from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    #path('monitoreo/', include('monitoreo.urls')),
+    path('monitoreo/usuario', monitoreo_views.usuario, name="usuario"),
     #path('/', RedirectView.as_view(url='/monitoreo/', permanent=True)),
 ]

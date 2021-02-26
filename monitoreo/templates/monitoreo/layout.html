@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+  
+      <meta charset="UTF-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Monitoreo</title>
+      <!--bootstrap 4-->
+
+      <!--custom-->
+      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+      <style>
+        body {
+ 
+          margin-top: 0px;
+          margin-bottom: 100px;
+          margin-right: 150px;
+          margin-left: 80px;
+          /* el tamaño por defecto es 14px */
+          font-size: 24px;
+        }
+      </style>
+      
+  </head>
+  <body>
+   <div
+    class="p-5 text-center bg-image"
+    style="
+    background-image: url(https://www.ipn.mx/assets/files/imageninstitucional/img/Logo%20IPN%2085%20aniversrio.jpg);
+      height: 1100px;
+    ">
+
+
+        {% block content %}
+        {% endblock %}
+    </div>
+  </body>
+</html>
