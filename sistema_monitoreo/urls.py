@@ -24,4 +24,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('monitoreo/usuario', monitoreo_views.usuario, name="usuario"),
     #path('/', RedirectView.as_view(url='/monitoreo/', permanent=True)),
+    path('Inicio', views.home, name="Inicio"),
+    
 ]
