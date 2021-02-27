@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'monitoreo.apps.MonitoreoConfig',
+    'bootstrap4',
 ]
 
 MIDDLEWARE = [
