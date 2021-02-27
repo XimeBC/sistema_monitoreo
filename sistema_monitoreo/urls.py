@@ -23,7 +23,5 @@ from django.conf import settings
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('monitoreo/usuario', monitoreo_views.usuario, name="usuario"),
-    #path('/', RedirectView.as_view(url='/monitoreo/', permanent=True)),
-    path('Inicio', views.home, name="Inicio"),
-    
+    path('monitoreo/inicio', monitoreo_views.inicio, name="inicio"),
 ]
