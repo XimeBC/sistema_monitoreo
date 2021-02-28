@@ -1,0 +1,95 @@
+{% extends "monitoreo/layout.html" %}
+<!--Diseño general-->
+{% block content %}
+
+<!--formulario general-->
+<!--Nombres  completo-->
+    <div class="row col-md-12">
+        <div class="col-md-6">
+            <label for="validationServer01" class="h3" class="form-label">Nombre</label>
+            <input type="text"class="form-control" id="validationServer01" required>
+                <div class="input-group has-validation">
+                    </div>
+        </div>
+
+        <div class="col-md-6">
+            <label for="validationServer01" class="h3" class="form-label">Apellidos</label>
+            <input type="text" class="form-control" id="validationServer02" required>
+            <div class="input-group has-validation">
+            </div>
+        </div>
+    </div>
+    <div class="row col-md-12">
+        <!--Boleta-->
+        <div class="col-md-6">
+            <label for="validationServer01" class="h3" class="form-label">Numero de  identificacion (Institución)</label>
+            <input type="text" class="form-control" id="validationServer03" required>
+            <div class="input-group has-validation">
+            </div>
+        </div>
+        <!--Correo electronico-->
+        <div class="col-md-6">
+            <label for="validationServerUsername" class="h3" lass="form-label">Correo</label>
+            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>
+            <div class="input-group has-validation">
+            </div>
+        </div>
+    </div>
+    <div class="row col-md-12">
+        <!--Contraseña-->
+        <div class="col-md-6">
+            <label for="validationServer01" class="h3" class="form-label">Contraseña</label>
+            <input type="text" class="form-control" id="validationServer04" required>
+            <div class="input-group has-validation">
+            </div>
+        </div>
+
+        <!--Tipo de permiso-->
+        <div class="col-md-6">
+            <label for="validationServer01" class="h3" class="form-label">Tipo de permiso</label>
+            <select class="form-select " id="validationServer04" aria-describedby="validationServer05Feedback" required>
+            <option selected disabled value="">Seleccione...</option>
+            <option value="1">Administración</option>
+            <option value="2">Profesor</option>
+            <option value="3">Estudiante</option>
+            </select>
+            <div class="input-group has-validation">       
+            </div>
+        </div>
+    </div>
+    <div class="row col-md-12">
+        <div class='col-sm-6'>
+            <form method="get">
+                    <label for="validationServer01" class="h3" class="form-label">Fecha de nacimiento</label>
+                        <input type="date" class="form-control" name="fecha" required pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}" min="1960-12-31" max="2018-12-31">
+                                <span class="validity"></span>
+                        </input>
+            </form>
+        </div>
+    </div>
+
+
+    <div class="row col-md-12">
+    <!--aceptar-->
+        <div class="col-md-6">
+            <div class="form-check">
+                <input class="form-check-input " type="checkbox" value="" id="invalidCheck3" aria-describedby="invalidCheck3Feedback" required>
+                <label class="form-check-label"  for="invalidCheck3">
+                    Agree to terms and conditions
+                </label>
+                <div id="invalidCheck3Feedback" class="invalid-feedback">
+                    You must agree before submitting. 
+                </div>
+            </div> 
+        </div> 
+    </div>
+
+    <div class="col-md-12">
+            <button class="btn btn-primary" type="submit" align="center">Registar</button>
+                <form method="get"align="center"action="">
+                <button class="btn btn-primary" type="submit" align="center">Cancelar</button> 
+                </form>
+    
+    </div>
+</div>
+{% endblock %}

@@ -9,3 +9,9 @@ def usuario(request):
 
 def inicio(request):
     return render(request,'monitoreo/home.html')
+
+def registro(request):
+    return render(request,'monitoreo/registro.html')
+    
+def inicio_sesion(request):
+    return render(request,'monitoreo/inicio_sesion.html')

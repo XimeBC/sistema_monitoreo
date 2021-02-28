@@ -1,18 +1,8 @@
 {% extends 'monitoreo/layout.html' %}
 
-{% load static %}
-
-{% block title %}Portafolio{% endblock %}
-
-{% block background %}{% endblock %}
-
-{% block headers %}
-    <h1>Portafolio</h1>
-    <span class="subheading">Currículo</span>
-{% endblock %}
-
 {% block content %}
     {% for usuario in usuarios %}
-        Proyecto: {{usuario}} creado <br>
+        Usuario: {{usuario}} creado <br>
     {% endfor %}
+    
 {% endblock %}
