@@ -26,4 +26,5 @@ urlpatterns = [
     path('monitoreo/inicio', monitoreo_views.inicio, name="inicio"),
     path('monitoreo/registro', monitoreo_views.registro, name="registro"),
     path('monitoreo/inicio_sesion', monitoreo_views.inicio_sesion, name="inicio_sesion"),
+    path('monitoreo/control', monitoreo_views.control_sintomas, name="control"),
 ]
