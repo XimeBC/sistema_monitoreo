@@ -40,7 +40,6 @@ INSTALLED_APPS = [
     'monitoreo.apps.MonitoreoConfig',
     'bootstrap4',
 ]
-
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -126,3 +125,6 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 #MEDIA_URL = '/media/'
+
+LOGIN_REDIRECT_URL = '/monitoreo/inicio'
+LOGIN_URL = '/monitoreo/registro/'

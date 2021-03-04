@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from .models import Usuarios, Control_usuarios, Historial_ubicaciones
-from .forms import Nuevo
+from .forms import RegistroUsuario
 
 def usuario(request):
     usuarios = Usuarios.objects.all()
@@ -24,11 +24,11 @@ def inicio(request):
 
 def registro(request):
     # Creamos un formulario vacío
-    form = Nuevo()
+    form = RegistroUsuario()
     # Comprobamos si se ha enviado el formulario
     if request.method == "POST":
         # Añadimos los datos recibidos al formulario
-        form = Nuevo(request.POST)
+        form = RegistroUsuario(request.POST)
         # Si el formulario es válido...
         if form.is_valid():
             # Guardamos el formulario pero sin confirmarlo,

@@ -19,6 +19,7 @@ from monitoreo import views as monitoreo_views
 #from django.views.generic import RedirectView
 from django.conf import settings
 #from django.conf.urls.static import static
+from django.contrib.auth.views import LoginView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -27,4 +28,5 @@ urlpatterns = [
     path('monitoreo/registro', monitoreo_views.registro, name="registro"),
     path('monitoreo/inicio_sesion', monitoreo_views.inicio_sesion, name="inicio_sesion"),
     path('monitoreo/control', monitoreo_views.control_sintomas, name="control"),
+    path('monitoreo/login/', LoginView.as_view(template_name='monitoreo/login.html'), name='login')
 ]
