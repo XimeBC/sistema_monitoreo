@@ -126,5 +126,4 @@ USE_TZ = True
 STATIC_URL = '/static/'
 #MEDIA_URL = '/media/'
 
-LOGIN_REDIRECT_URL = '/monitoreo/inicio'
-LOGIN_URL = '/monitoreo/registro/'
+LOGIN_REDIRECT_URL = 'usuario'
