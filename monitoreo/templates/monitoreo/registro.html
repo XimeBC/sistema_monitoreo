@@ -1,9 +1,10 @@
 {% extends "monitoreo/layout.html" %}
 <!--Diseño general-->
 {% block content %}
-<form method="POST">
-    {{ form.as_p }}
+<form class="form" method="POST">
     {% csrf_token %}
+    {{ form.as_p }}
+    
     <button type="submit">Crear</button>
 </form>
    

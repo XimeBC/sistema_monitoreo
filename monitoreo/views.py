@@ -1,6 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import Usuarios, Control_usuarios, Historial_ubicaciones
-from .forms import RegistroUsuario
+from .forms import UserRegisterForm
+from django.contrib import messages
 
 def usuario(request):
     usuarios = Usuarios.objects.all()
@@ -23,24 +24,18 @@ def inicio(request):
 
 
 def registro(request):
-    # Creamos un formulario vacío
-    form = RegistroUsuario()
-    # Comprobamos si se ha enviado el formulario
     if request.method == "POST":
-        # Añadimos los datos recibidos al formulario
-        form = RegistroUsuario(request.POST)
-        # Si el formulario es válido...
+        form = UserRegisterForm(request.POST)
         if form.is_valid():
-            # Guardamos el formulario pero sin confirmarlo,
-            # así conseguiremos una instancia para manejarla
-            instancia = form.save(commit=False)
-            # Podemos guardarla cuando queramos
-            instancia.save()
-            # Después de guardar redireccionamos a la lista
-            return render(request,'monitoreo/home.html')
+            form.save()
+            username = form.cleaned_data['username']
+            messages.success(request, f"Usuario{username}creado")
+            return redirect('inicio')
+    else:
+        form=UserRegisterForm()
 
-    # Si llegamos al final renderizamos el formulario
-    return render(request, "monitoreo/registro.html", {'form': form})
-   
+    context = { 'form':form }    
+    return render(request,'monitoreo/registro.html',context)
+
 def inicio_sesion(request):
     return render(request,'monitoreo/inicio_sesion.html')

@@ -5,7 +5,7 @@ class Usuarios(models.Model):
     apellido = models.CharField(max_length=200)
     boleta = models.CharField(max_length=200)
     nombre_usuario = models.CharField(max_length=200)
-    clave = models.CharField(max_length=200)
+    clave = models.CharField(max_length=200 )
     fecha_nacimiento = models.DateField(max_length=200)
 
 class Control_usuarios(models.Model):
