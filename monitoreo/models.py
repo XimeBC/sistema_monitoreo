@@ -21,13 +21,13 @@ class Historial_ubicaciones(models.Model):
         return '%s, %s' % (self.fecha_hora_entrada)
 
 class Qrs(models.Model):
-    codigo_barras = models.ImageField(upload_to='barcodes/', blank=True)
+    codigo_barras = models.ImageField(upload_to='qr_code', blank=True)
     fecha_hora_caducidad = models.CharField(max_length=200)
     def __str__(self):
         return '%s, %s' % (self.codigo_barras, self.fecha_hora_caducidad)
 
 class Tipos_usuario(models.Model):
-    descripcion = models.CharField(max_length=200)
+    descripcion = models.CharField(max_length=200) 
     estado = models.CharField(max_length=200)
     def __str__(self):
         return '%s, %s' % (self.descripcion, self.estado)

@@ -30,6 +30,7 @@ def registro(request):
             form.save()
             username = form.cleaned_data['username']
             messages.success(request, f"Usuario{username}creado")
+             messages.success(request, f"Usuario{form.g}creado")
             return redirect('inicio')
     else:
         form=UserRegisterForm()
