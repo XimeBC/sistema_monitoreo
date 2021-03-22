@@ -25,15 +25,19 @@
             <a class="nav-link" href="{% url 'usuario' %}">Prueba</a>
           </li>
         </ul>
+        {% if user.is_authenticated %}
+        <span class="navbar-text">
+          <a class="nav-link" href="{% url 'logout' %}">Cerrar Sesión</a>
+        </span>
+        {% else %}
         <span class="navbar-text">
           <a class="nav-link" href="{% url 'login' %}">Inicio Sesión</a>
         </span>
         <span class="navbar-text">
           <a class="nav-link" href="{% url 'registro' %}">Registro</a>
         </span>
-        <span class="navbar-text">
-          <a class="nav-link" href="{% url 'logout' %}">salir</a>
-        </span>
+        {% endif %}
+       
       </div>
     </nav>
 

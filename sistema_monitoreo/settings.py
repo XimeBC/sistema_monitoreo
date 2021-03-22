@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     'monitoreo.apps.MonitoreoConfig',
     'bootstrap4',
     'qr_code',
-    'websides',
+    
 ]
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -127,8 +127,6 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(os.path.dirname(
-    BASE_DIR), "media_root")
 
 LOGIN_REDIRECT_URL = 'usuario'
 

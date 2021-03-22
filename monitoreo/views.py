@@ -4,9 +4,7 @@ from .forms import UserRegisterForm
 from django.contrib import messages
 
 def usuario(request):
-    usuarios = Usuarios.objects.all()
-    return render(request,'monitoreo/usuario/usuario.html',
-    {'usuarios' : usuarios})
+    return render(request,'monitoreo/usuario/usuario.html')
 
 def control_sintomas(request):
     control_sintomas = Control_usuarios.objects.all()
@@ -20,18 +18,20 @@ def historial_ubicaciones(request):
 
 
 def inicio(request):
-    return render(request,'monitoreo/home.html')
+    return render(request,'monitoreo/usuario/usuario.html')
 
 
 def registro(request):
     if request.method == "POST":
         form = UserRegisterForm(request.POST)
+        print(request.POST['first_name'])
         if form.is_valid():
             form.save()
+            u = Usuarios(nombre=request.POST['first_name'],apellido=request.POST['last_name'],boleta=request.POST['boleta'],nombre_usuario=request.POST['username'],clave=request.POST['password1'],fecha_nacimiento=request.POST['fecha_nacimiento'])
+            u.save()
             username = form.cleaned_data['username']
             messages.success(request, f"Usuario{username}creado")
-             messages.success(request, f"Usuario{form.g}creado")
-            return redirect('inicio')
+            return redirect('login')
     else:
         form=UserRegisterForm()
 
