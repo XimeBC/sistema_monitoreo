@@ -1,0 +1,8 @@
+{% extends 'monitoreo/layout.html' %}
+
+{% block content %}
+    {% for usuario in usuarios %}
+        Usuario: {{usuario}} creado <br>
+    {% endfor %}
+    
+{% endblock %}

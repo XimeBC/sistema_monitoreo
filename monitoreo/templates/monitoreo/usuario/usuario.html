@@ -1,8 +1,11 @@
 {% extends 'monitoreo/layout.html' %}
 
 {% block content %}
-    {% for usuario in usuarios %}
-        Usuario: {{usuario}} creado <br>
-    {% endfor %}
-    
+    {% if user.is_authenticated %}
+       <p> Bienvenido, {{ user.username }}. Gracias por iniciar sesion. </p>
+       <p> Nombre: {{ user.username }}</p>
+
+    {% else %}
+      <p> POR FAVOR Inicia sesion.</p>
+    {% endif %}
 {% endblock %}
