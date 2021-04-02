@@ -1,0 +1,13 @@
+{% extends 'monitoreo/layout.html' %}
+
+{% block content %}
+    
+    {% if user.is_authenticated %}
+        <h1>{{name}}-{{obj.fecha_hora_caducidad}} </h1>
+        <img src={{obj.codigo_barras.url}}>
+
+    {% else %}
+      <p> POR FAVOR Inicia sesion.</p>
+    {% endif %}
+    
+{% endblock %}

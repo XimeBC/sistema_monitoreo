@@ -18,7 +18,7 @@ from django.urls import path
 from monitoreo import views as monitoreo_views
 #from django.views.generic import RedirectView
 from django.conf import settings
-#from django.conf.urls.static import static
+from django.conf.urls.static import static
 from django.contrib.auth.views import LoginView, LogoutView
 
 urlpatterns = [
@@ -26,8 +26,10 @@ urlpatterns = [
     path('monitoreo/usuario', monitoreo_views.usuario, name="usuario"),
     path('monitoreo/inicio', monitoreo_views.inicio, name="inicio"),
     path('monitoreo/registro/', monitoreo_views.registro, name='registro'),
-    path('monitoreo/inicio_sesion', monitoreo_views.inicio_sesion, name="inicio_sesion"),
+    path('monitoreo/Qr', monitoreo_views.Qr, name="Qr"),
     path('monitoreo/control', monitoreo_views.control_sintomas, name="control"),
     path('monitoreo/login/', LoginView.as_view(template_name='monitoreo/login.html'), name='login'),    
     path('monitoreo/logout/', LogoutView.as_view(template_name='monitoreo/logout.html'), name='logout')
 ]
+
+urlpatterns += static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)

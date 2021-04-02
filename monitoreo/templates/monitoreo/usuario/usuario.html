@@ -1,10 +1,16 @@
 {% extends 'monitoreo/layout.html' %}
 
 {% block content %}
-    {% if user.is_authenticated %}
-       <p> Bienvenido, {{ user.username }}. Gracias por iniciar sesion. </p>
-       <p> Nombre: {{ user.username }}</p>
 
+    {% if user.is_authenticated %}
+    
+       <p> Bienvenido, {{ user.username }}. Gracias por iniciar sesion. </p>
+       <p> Nombre: {{ user.first_name }}</p>
+       <p> Apellidos: {{ user.last_name }}</p>
+       <p> Email: {{ user.email }}</p>
+       <p> Boleta: {{ boleta }}</p>
+       <p> Fecha de nacimiento: {{ fecha_nacimiento }}</p>
+       
     {% else %}
       <p> POR FAVOR Inicia sesion.</p>
     {% endif %}
