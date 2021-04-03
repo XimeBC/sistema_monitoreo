@@ -16,32 +16,34 @@
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+
+        {% if user.is_authenticated %}
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
         <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
           <li class="nav-item active">
-            <a class="nav-link" href="{% url 'inicio' %}">Inicio</a>
-          </li>
-          <li class="nav-item active">
-            <a class="nav-link" href="{% url 'Qr' %}">Qr</a>
+            <a class="nav-link" href="{% url 'usuario' %}">Informacion</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="{% url 'usuario' %}">Prueba</a>
+            <a class="nav-link" href="{% url 'inicio' %}">Historial</a>
           </li>
         </ul>
-        {% if user.is_authenticated %}
+        </div>
         <span class="navbar-text">
           <a class="nav-link" href="{% url 'logout' %}">Cerrar Sesión</a>
         </span>
         {% else %}
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+
         <span class="navbar-text">
           <a class="nav-link" href="{% url 'login' %}">Inicio Sesión</a>
         </span>
+        
         <span class="navbar-text">
           <a class="nav-link" href="{% url 'registro' %}">Registro</a>
         </span>
+        </div>      
         {% endif %}
-       
-      </div>
+      
     </nav>
 
     <div class="p-5 text-center bg-image" style="background-image: url(https://www.ipn.mx/assets/files/imageninstitucional/img/Logo%20IPN%2085%20aniversrio.jpg); height: 1100px;">

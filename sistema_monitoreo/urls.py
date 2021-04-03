@@ -26,7 +26,6 @@ urlpatterns = [
     path('monitoreo/usuario', monitoreo_views.usuario, name="usuario"),
     path('monitoreo/inicio', monitoreo_views.inicio, name="inicio"),
     path('monitoreo/registro/', monitoreo_views.registro, name='registro'),
-    path('monitoreo/Qr', monitoreo_views.Qr, name="Qr"),
     path('monitoreo/control', monitoreo_views.control_sintomas, name="control"),
     path('monitoreo/login/', LoginView.as_view(template_name='monitoreo/login.html'), name='login'),    
     path('monitoreo/logout/', LogoutView.as_view(template_name='monitoreo/logout.html'), name='logout')

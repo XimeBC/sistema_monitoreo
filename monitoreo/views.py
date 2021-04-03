@@ -3,11 +3,16 @@ from .models import Usuarios, Control_usuarios, Historial_ubicaciones, Qrs
 from .forms import UserRegisterForm
 from django.contrib import messages
 from websites.models import Website
+from django.contrib.auth.models import User
 
 def usuario(request):
-    nombre_usuario= Usuarios.objects.filter(nombre_usuario= 'nombre_usuario')
- 
-    return render(request,'monitoreo/usuario/usuario.html')
+    usuario = Usuarios.objects.get(user_id=request.user.id)
+    qr = Qrs.objects.get(user_id=request.user.id)
+    context = {
+        'usuario' : usuario,
+        'qr' : qr,
+    }
+    return render(request,'monitoreo/usuario/usuario.html', context)
 
 def control_sintomas(request):
     control_sintomas = Control_usuarios.objects.all()
@@ -21,7 +26,7 @@ def historial_ubicaciones(request):
 
 
 def inicio(request):
-    return render(request,'monitoreo/usuario/usuario.html')
+    return render(request,'monitoreo/home.html')
 
 
 def registro(request):
@@ -29,26 +34,16 @@ def registro(request):
         form = UserRegisterForm(request.POST)
         if form.is_valid():
             form.save()
-            u = Usuarios(nombre=request.POST['first_name'],apellido=request.POST['last_name'],boleta=request.POST['boleta'],nombre_usuario=request.POST['username'],clave=request.POST['password1'],fecha_nacimiento=request.POST['fecha_nacimiento'])
+            user = User.objects.get(username=request.POST['username']).pk
+            u = Usuarios(nombre=request.POST['first_name'],apellido=request.POST['last_name'],boleta=request.POST['boleta'],nombre_usuario=request.POST['username'],clave=request.POST['password1'],fecha_nacimiento=request.POST['fecha_nacimiento'],user_id=user)
             u.save()
-            cod= Qrs(fecha_hora_caducidad=request.POST['username'])
+            cod= Qrs(nombre_usuario=request.POST['username'],user_id=user)
             cod.save()
             username = form.cleaned_data['username']
             messages.success(request, f"Usuario{username}creado")
             return redirect('login')
-            
-
     else:
         form=UserRegisterForm()
 
     context = { 'form':form }    
     return render(request,'monitoreo/registro.html',context)
-
-def Qr(request):
-    fecha_hora_caducidad = "Welcome to"
-    obj = Qrs.objects.get(id=2)
-    context = {
-        'fecha_hora_caducidad': fecha_hora_caducidad,
-        'obj' : obj,
-    }
-    return render(request,'monitoreo/usuario/Qr.html', context)

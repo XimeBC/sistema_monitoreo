@@ -3,14 +3,36 @@
 {% block content %}
 
     {% if user.is_authenticated %}
+    <div class="align-content-lg-center">
+      <h1> Información, {{ user.username }}.</h1>
+    </div>
+      <div class="card">
     
-       <p> Bienvenido, {{ user.username }}. Gracias por iniciar sesion. </p>
-       <p> Nombre: {{ user.first_name }}</p>
-       <p> Apellidos: {{ user.last_name }}</p>
-       <p> Email: {{ user.email }}</p>
-       <p> Boleta: {{ boleta }}</p>
-       <p> Fecha de nacimiento: {{ fecha_nacimiento }}</p>
+        <div class="row">
+          <div class="col-md-2">
+            <p> Nombre: {{ user.first_name }}</p>
+          </div>
+          <div class="col-md-2">
+            <p> Apellidos: {{ user.last_name }}</p>
+          </div>
+          <div class="col-md-2">
+            <p> Email: {{ user.email }}</p>
+          </div>
+          <div class="col-md-2">
+            <p> Boleta: {{ usuario.boleta }}</p>
+          </div>
+          <div class="col-md-2">  
+            <p> Fecha de nacimiento: {{ usuario.fecha_nacimiento }}</p>
+          </div>
+        </div>
+      </div>
+      
        
+      <div class="align-content-lg-center">
+        <img src={{qr.url.url}}>
+        <h1>  Gracias por iniciar sesion. </h1>
+      </div>
+ 
     {% else %}
       <p> POR FAVOR Inicia sesion.</p>
     {% endif %}
