@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'monitoreo.apps.MonitoreoConfig',
     'bootstrap4',
     'websites',
+    'widget_tweaks',
     
 ]
 MIDDLEWARE = [

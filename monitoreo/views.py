@@ -35,8 +35,12 @@ def registro(request):
         if form.is_valid():
             form.save()
             user = User.objects.get(username=request.POST['username']).pk
-            u = Usuarios(nombre=request.POST['first_name'],apellido=request.POST['last_name'],boleta=request.POST['boleta'],nombre_usuario=request.POST['username'],clave=request.POST['password1'],fecha_nacimiento=request.POST['fecha_nacimiento'],user_id=user)
-            u.save()
+            if request.POST['id_tipo'] == '4':
+                u = Usuarios(nombre=request.POST['first_name'],apellido=request.POST['last_name'],boleta='Invitado',nombre_usuario=request.POST['username'],clave=request.POST['password1'],fecha_nacimiento=request.POST['fecha_nacimiento'],id_tipo=request.POST['id_tipo'],user_id=user)
+                u.save()
+            else:
+                u = Usuarios(nombre=request.POST['first_name'],apellido=request.POST['last_name'],boleta=request.POST['boleta'],nombre_usuario=request.POST['username'],clave=request.POST['password1'],fecha_nacimiento=request.POST['fecha_nacimiento'],id_tipo=request.POST['id_tipo'],user_id=user)
+                u.save()
             cod= Qrs(nombre_usuario=request.POST['username'],user_id=user)
             cod.save()
             username = form.cleaned_data['username']
@@ -47,3 +51,13 @@ def registro(request):
 
     context = { 'form':form }    
     return render(request,'monitoreo/registro.html',context)
+
+def lista_usuarios(request):
+    usuarios = Usuarios.objects.all()
+    users = User.objects.all()
+    context = {
+        'usuarios' : usuarios,
+        'users' : users,
+    }
+    return render(request,'monitoreo/listausuarios.html', context)
+

@@ -1,11 +1,14 @@
 {% extends "monitoreo/layout.html" %}
 <!--Diseño general-->
 {% block content %}
+
 <form class="form" method="POST">
-    {% csrf_token %}
-    {{ form.as_p }}
-    
-    <button type="submit">Crear</button>
+    <div  align="right">
+        {% csrf_token %}
+            {{ form.as_p }}
+        
+        <button type="submit" href="{% url 'inicio' %}">Crear</button>
+    </div>
 </form>
-   
+
 {% endblock %}

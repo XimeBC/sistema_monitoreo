@@ -1,0 +1,62 @@
+{% extends "monitoreo/layout.html" %}
+
+{% block content %}
+    {% csrf_token %}
+      {% if user.is_authenticated %}
+        <table class="table table-borderless table-dark">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Nombres</th>
+              <th scope="col">Apellidos</th>
+              <th scope="col">Nombre Usuario</th>
+              <th scope="col">Correo</th>
+              <th scope="col">Fecha de registro</th>
+              <th scope="col">Ultima sesión.</th>
+              <th scope="col">Contraseña</th>
+              <th scope="col">Boleta</th>
+              <th scope="col">Fecha de nacimiento</th>
+              <th scope="col">Tipo de usuario</th>
+
+            </tr>
+          </thead>
+          <tbody>
+          {% for usuario in usuarios %}
+            <tr>
+            <td>{{forloop.counter}}</td>
+            <td>{{usuario.user.first_name}}</td>
+            <td>{{usuario.user.last_name}}</td>
+            <td>{{usuario.user.username}}</td>
+            <td>{{usuario.user.email}}</td>
+            <td>{{usuario.user.date_joined}}</td>
+            <td>{{usuario.user.last_login}}</td>
+            <td>{{usuario.clave}}</td>
+            <td>{{usuario.boleta}}</td>
+            <td>{{usuario.fecha_nacimiento}}</td>
+            
+            <td> 
+                {% if usuario.id_tipo == 1 %}
+                  Estudiante
+                {% endif %}
+                {% if usuario.id_tipo == 2 %}
+                  Docente
+                {% endif %}
+                {% if usuario.id_tipo == 3 %}
+                  Administrador
+                {% endif %}
+                {% if usuario.id_tipo == 4 %}
+                  Invitado
+                {% endif %}
+              </td>
+              <td>
+                <svg class="bi" width="32" height="32" fill="currentColor">
+                  <use xlink:href="bootstrap-icons.svg#shop"/>
+                </svg>
+
+              </td>
+          {% endfor %}
+          </tbody>
+    {% endif %}
+  
+{% endblock %}
+  

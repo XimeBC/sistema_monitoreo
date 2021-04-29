@@ -1,7 +1,7 @@
 {% extends 'monitoreo/layout.html' %}
 
 {% block content %}
-
+  {% csrf_token %}
     {% if user.is_authenticated %}
     <div class="align-content-lg-center">
       <h1> Información, {{ user.username }}.</h1>
@@ -23,6 +23,22 @@
           </div>
           <div class="col-md-2">  
             <p> Fecha de nacimiento: {{ usuario.fecha_nacimiento }}</p>
+          </div>
+          <div class="col-md-2">  
+            <p> Tipo de usuario: 
+              {% if usuario.id_tipo == 1 %}
+                Estudiante
+              {% endif %}
+              {% if usuario.id_tipo == 2 %}
+                Docente
+              {% endif %}
+              {% if usuario.id_tipo == 3 %}
+                Administrador
+              {% endif %}
+              {% if usuario.id_tipo == 4 %}
+                Invitado
+              {% endif %}
+            </p>
           </div>
         </div>
       </div>

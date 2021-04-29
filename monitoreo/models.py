@@ -5,16 +5,18 @@ from django.core.files import File
 from PIL import Image, ImageDraw
 from django.contrib.auth.models import User
 
+
 class Usuarios(models.Model):
     nombre = models.CharField(max_length=200)
     apellido = models.CharField(max_length=200)
-    boleta = models.CharField(max_length=200)
+    boleta = models.CharField(max_length=200, default='Invitado')
     nombre_usuario = models.CharField(max_length=200)
     clave = models.CharField(max_length=200 )
     fecha_nacimiento = models.DateField(max_length=200)
     user = models.OneToOneField(User, on_delete=models.CASCADE, null=True)
+    id_tipo = models.IntegerField( null=False, blank=False, default=1)
     def __str__(self):
-        return '%s, %s, %s, %s, %s, %s' % (self.nombre, self.apellido, self.boleta, self.nombre_usuario, self.fecha_nacimiento, self.clave)
+        return '%s, %s, %s, %s, %s, %s, %s, %s' % (self.user, self.id_tipo, self.nombre, self.apellido, self.boleta, self.nombre_usuario, self.fecha_nacimiento, self.clave)
 
 class Control_usuarios(models.Model):
     temperatura = models.CharField(max_length=200)
@@ -54,7 +56,7 @@ class Tipos_usuario(models.Model):
 
 class Salones(models.Model):
     descripcion = models.CharField(max_length=200)
-    estado = models.CharField(max_length=200)
+    estado = models.IntegerField(null=False)
     def __str__(self):
         return '%s, %s' % (self.descripcion, self.estado)
 
