@@ -2,7 +2,7 @@
 
 {% block content %}
     {% csrf_token %}
-      {% if user.is_authenticated %}
+    {% if user.is_authenticated %}
         <table class="table table-borderless table-dark">
           <thead>
             <tr>
@@ -20,7 +20,7 @@
 
             </tr>
           </thead>
-          <tbody>
+        <tbody>
           {% for usuario in usuarios %}
             <tr>
             <td>{{forloop.counter}}</td>
@@ -42,21 +42,16 @@
                   Docente
                 {% endif %}
                 {% if usuario.id_tipo == 3 %}
-                  Administrador
+                  Administración
                 {% endif %}
                 {% if usuario.id_tipo == 4 %}
                   Invitado
                 {% endif %}
-              </td>
-              <td>
-                <svg class="bi" width="32" height="32" fill="currentColor">
-                  <use xlink:href="bootstrap-icons.svg#shop"/>
-                </svg>
-
-              </td>
+            </td>
+            <td>
+              <a href="{% url 'admi_edit_usuarios' usuario.id %}">Editar</a>
+            </td>
           {% endfor %}
-          </tbody>
+        </tbody>
     {% endif %}
-  
 {% endblock %}
-  

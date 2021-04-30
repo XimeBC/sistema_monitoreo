@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from .models import Usuarios, Control_usuarios, Historial_ubicaciones, Qrs
-from .forms import UserRegisterForm
+from .forms import UserRegisterForm, AdmiForms
 from django.contrib import messages
 from websites.models import Website
 from django.contrib.auth.models import User
@@ -44,7 +44,7 @@ def registro(request):
             cod= Qrs(nombre_usuario=request.POST['username'],user_id=user)
             cod.save()
             username = form.cleaned_data['username']
-            messages.success(request, f"Usuario{username}creado")
+            messages.success(request,  "Usuario creado")
             return redirect('login')
     else:
         form=UserRegisterForm()
@@ -54,10 +54,23 @@ def registro(request):
 
 def lista_usuarios(request):
     usuarios = Usuarios.objects.all()
-    users = User.objects.all()
     context = {
-        'usuarios' : usuarios,
-        'users' : users,
+        'usuarios' : usuarios
     }
     return render(request,'monitoreo/listausuarios.html', context)
 
+def admi_edit_usuarios(request, id):
+    admiUsuarios = Usuarios.objects.get(id=id)
+    context = {
+        'Usuarios' : admiUsuarios
+    }
+    return render(request,'monitoreo/admi_edit_usuarios.html', context)
+
+def editarUsuario(request, id):
+    formsAdmiUsua = Usuarios.objects.get(id=id)
+    fo =  AdmiForms(request.POST, instance=editarUsuario)
+    if fo.is_valid():
+        fo.save()
+        messages.success(request, "Usuario editado")            
+        context = { 'Usuarios':formsAdmiUsua }    
+    return render(request,'monitoreo/listausuarios.html', context)

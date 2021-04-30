@@ -16,7 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from monitoreo import views as monitoreo_views
-#from django.views.generic import RedirectView
+from django.views.generic import RedirectView
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib.auth.views import LoginView, LogoutView
@@ -30,6 +30,10 @@ urlpatterns = [
     path('monitoreo/login/', LoginView.as_view(template_name='monitoreo/login.html'), name='login'),    
     path('monitoreo/logout/', LogoutView.as_view(template_name='monitoreo/logout.html'), name='logout'),
     path('monitoreo/lista_usuarios', monitoreo_views.lista_usuarios, name="Admi_listas"),
+    path('monitoreo/admi_edit_usuarios/<int:id>', monitoreo_views.admi_edit_usuarios, name="admi_edit_usuarios"),
+    path('monitoreo/editarUsuario/<int:id>', monitoreo_views.editarUsuario, name="editarUsuario")
+
+   
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
