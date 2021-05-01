@@ -7,6 +7,7 @@ from django.contrib.auth.models import User
 
 
 class Usuarios(models.Model):
+    curp = models.CharField(max_length=200)
     nombre = models.CharField(max_length=200)
     apellido = models.CharField(max_length=200)
     boleta = models.CharField(max_length=200, default='Invitado')
@@ -16,19 +17,25 @@ class Usuarios(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, null=True)
     id_tipo = models.IntegerField( null=False, blank=False, default=1)
     def __str__(self):
-        return '%s, %s, %s, %s, %s, %s, %s, %s' % (self.user, self.id_tipo, self.nombre, self.apellido, self.boleta, self.nombre_usuario, self.fecha_nacimiento, self.clave)
+        return '%s,%s, %s, %s, %s, %s, %s, %s, %s' % (self.curp,self.user, self.id_tipo, self.nombre, self.apellido, self.boleta, self.nombre_usuario, self.fecha_nacimiento, self.clave)
 
 class Control_usuarios(models.Model):
     temperatura = models.CharField(max_length=200)
     oxigeno = models.CharField(max_length=200)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, null=True)
     fecha_hora_registro = models.CharField(max_length=200)
     def __str__(self):
         return '%s, %s' % (self.oxigeno, self.temperatura)
 
-class Historial_ubicaciones(models.Model):
-    fecha_hora_entrada = models.CharField(max_length=200)
+class Restringidos(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, null=True)
+    fecha_sintomas = models.CharField(max_length=200)
+    estado_condicion = models.CharField(max_length=200)
+    fecha_prueba = models.DateField(max_length=200)
+    tipo_prueba = models.CharField(max_length=200)
+
     def __str__(self):
-        return '%s, %s' % (self.fecha_hora_entrada)
+        return '%s, %s, %s, %s' % (self.fecha_sintomas, self.condicion, self.fecha_prueba, self.tipo_prueba)
 
 class Qrs(models.Model):
     nombre_usuario=models.CharField(max_length=200)

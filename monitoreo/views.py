@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
-from .models import Usuarios, Control_usuarios, Historial_ubicaciones, Qrs
-from .forms import UserRegisterForm, AdmiForms
+from .models import Usuarios, Control_usuarios, Qrs
+from .forms import UserRegisterForm, AdmiForms, UserForm
 from django.contrib import messages
 from websites.models import Website
 from django.contrib.auth.models import User
@@ -19,15 +19,8 @@ def control_sintomas(request):
     return render(request,'monitoreo/usuario/control.html',
     {'control_sintomas' : control_sintomas})
 
-def historial_ubicaciones(request):
-    historial_ubicaciones = Historial_ubicaciones.objects.all()
-    return render(request,'monitoreo/usuario/ubicaciones.html',
-    {'Historial_ubicaciones' : historial_ubicaciones})
-
-
 def inicio(request):
     return render(request,'monitoreo/home.html')
-
 
 def registro(request):
     if request.method == "POST":
@@ -60,17 +53,22 @@ def lista_usuarios(request):
     return render(request,'monitoreo/listausuarios.html', context)
 
 def admi_edit_usuarios(request, id):
-    admiUsuarios = Usuarios.objects.get(id=id)
-    context = {
-        'Usuarios' : admiUsuarios
-    }
-    return render(request,'monitoreo/admi_edit_usuarios.html', context)
+    form = UserForm(request.POST,instance=admi_edit_usuarios)
+    if form.is_valid():
+        form.save()
+        user = User.objects.get(id=id).pk
+        if request.POST['id_tipo'] == '4':
+            u = Usuarios(nombre=request.POST['first_name'],apellido=request.POST['last_name'],boleta='Invitado',nombre_usuario=request.POST['username'],clave=request.POST['password1'],fecha_nacimiento=request.POST['fecha_nacimiento'],id_tipo=request.POST['id_tipo'],user_id=user)
+            u.save()
+        else:
+            u = Usuarios(nombre=request.POST['first_name'],apellido=request.POST['last_name'],boleta=request.POST['boleta'],nombre_usuario=request.POST['username'],clave=request.POST['password1'],fecha_nacimiento=request.POST['fecha_nacimiento'],id_tipo=request.POST['id_tipo'],user_id=user)
+            u.save()
+        cod= Qrs(nombre_usuario=request.POST['username'],user_id=user)
+        cod.save()
+        messages.success(request,  "Guardado")
+        return redirect('admin_edit_usuarios')
+    else:
+        form=UserForm()
 
-def editarUsuario(request, id):
-    formsAdmiUsua = Usuarios.objects.get(id=id)
-    fo =  AdmiForms(request.POST, instance=editarUsuario)
-    if fo.is_valid():
-        fo.save()
-        messages.success(request, "Usuario editado")            
-        context = { 'Usuarios':formsAdmiUsua }    
-    return render(request,'monitoreo/listausuarios.html', context)
+    context = { 'User':form }    
+    return render(request,'monitoreo/listausuarios.html',context)

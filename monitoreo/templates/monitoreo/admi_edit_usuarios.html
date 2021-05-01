@@ -8,43 +8,43 @@
         <table class="table table-borderless table-dark">   
             <tr>
               <td>Nombres</td>
-               <td><input type"text" name="nombre" id="nombre" value="{{Usuarios.user.first_name}}"></td>
+               <td><input type"text" name="nombre" id="first_name" value="{{Usuarios.user.first_name}}"></td>
             </tr>
             <tr>
               <td>Apellidos</td>
-              <td><input type"text" name="id" value="{{Usuarios.user.last_name}}"></td>
+              <td><input type"text" name="last_name" value="{{Usuarios.user.last_name}}"></td>
             </tr>
             <tr>
               <td>Nombre Usuario</td>
-              <td><input type"text" name="id" value="{{Usuarios.user.username}}"></td>
+              <td><input type"text" name="username" value="{{Usuarios.user.username}}"></td>
             </tr>
             <tr>
               <td>Correo</td>
-              <td><input type"text" name="id" value="{{Usuarios.user.email}}"></td>                    
+              <td><input type"text" name="email" value="{{user.email}}"></td>                    
             </tr>
             <tr>
               <td>Contraseña</td>
-              <td><input type"text" name="id" value="{{Usuarios.clave}}"></td>
+              <td><input type"text" name="password" value="{{Usuarios.clave}}"></td>
             </tr>
             <tr>
               <td>Boleta</td>
-              <td><input type"text" name="id" value="{{Usuarios.boleta}}"></td>
+              <td><input type"text" name="boleta" value="{{Usuarios.boleta}}"></td>
             </tr>
             <tr>
               <td>Fecha de nacimiento</td>
-              <td><input type"text" name="id" value="{{Usuarios.fecha_nacimiento}}"></td>
+              <td><input type"text" name="fecha_nacimiento" value="{{Usuarios.fecha_nacimiento}}"></td>
             </tr>
             <tr>
               <td>Tipo de usuario</td>
-              <td><input type"text" name="id" value="{{Usuarios.id_tipo}}"></td>
+              <td><input type"text" name="id_tipo" value="{{Usuarios.id_tipo}}"></td>
             </tr>
         </table>
            
         <a href="{% url 'editarUsuario' Usuarios.id%}"> Editar</a>
         <button type="submit" href="{% url 'editarUsuario' Usuarios.id %}">Guardar</button> | <a href="{% url 'Admi_listas' %}"> Regresar </a>
         {% if messages %}
-          {% for formsAdmiUsua in messages %} 
-             <h1 align="justify" style="color:green"> {{formsAdmiUsua}}</h1>
+          {% for editarUsuario in messages %} 
+             <h1 align="justify" style="color:green"> {{editarUsuario}}</h1>
           {% endfor %}
         {% endif %}
       </form>
