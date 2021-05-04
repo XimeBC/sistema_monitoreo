@@ -69,7 +69,7 @@ def admi_edit_usuarios(request, usuario_id):
             editar.nombre = request.POST['nombre']
             editar.apellido = request.POST['apellido']
             editar.boleta = request.POST['boleta']
-            if editar.clave != '':
+            if editar.clave != "":
                 editar.clave = request.POST['clave']
             editar.nombre_usuario = request.POST['nombre_usuario']
             editar.fecha_nacimiento = request.POST['fecha_nacimiento']
@@ -83,7 +83,7 @@ def admi_edit_usuarios(request, usuario_id):
                 user.username=request.POST['nombre_usuario']
             user.first_name=request.POST['nombre']
             user.last_name=request.POST['apellido']
-            if editar.clave != '':
+            if editar.clave != "":
                 user.set_password(request.POST['clave'])
             if editar.estado != request.POST['estado']:
                 user.is_active=request.POST['estado']
@@ -103,8 +103,11 @@ def monitoreoUsuario(request, usuario_id):
     if request.method == "POST":
         formulario = formControlUsuarios(request.POST, instance=usuario)
         if formulario.is_valid():
-            u = Control_usuarios(user_id=request.POST['user_id'],oxigenacion=request.POST['oxigenacion'],temperatura=request.POST['temperatura'],fecha_hora_registro=request.POST['fecha_hora_registro'])
-            u.save()
+            formulario.nombre_usuario = request.POST['nombre_usuario']
+            formulario.oxigenacion=request.POST['oxigenacion']
+            formulario.temperatura=request.POST['temperatura']
+            formulario.fecha_hora_registro=request.POST['fecha_hora_registro']
+            formulario.save()
             messages.success(request,  "Guardado")
             return redirect('lista_usuarios' )
     else:
@@ -115,6 +118,8 @@ def monitoreoUsuario(request, usuario_id):
         return render(request,'monitoreo/Monitoreo.html', context)
 
 def eliminarUsuario(request, usuario_id):
-    usuario = Usuarios.objects.get(id=usuario_id)
+    usuario = Usuarios.objects.get(id=usuario_id).delete
+    usuar=User.objects.get(id=usuario_id)
     usuario.delete()
+    usuar.delete()
     return redirect('Admi_listas')

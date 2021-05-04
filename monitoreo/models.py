@@ -24,10 +24,10 @@ class Usuarios(models.Model):
 class Control_usuarios(models.Model):
     temperatura = models.CharField(max_length=200)
     oxigeno = models.CharField(max_length=200)
-    user = models.OneToOneField(User, on_delete=models.CASCADE, null=True)
+    nombre_usuario=models.CharField(max_length=200, default='null')
     fecha_hora_registro = models.CharField(max_length=200)
     def __str__(self):
-        return '%s, %s' % (self.oxigeno, self.temperatura)
+        return '%s, %s, %s, %s' % (self.nombre_usuario, self.fecha_hora_registro, self.oxigeno, self.temperatura)
 
 class Restringidos(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, null=True)
@@ -37,7 +37,7 @@ class Restringidos(models.Model):
     tipo_prueba = models.CharField(max_length=200)
 
     def __str__(self):
-        return '%s, %s, %s, %s' % (self.fecha_sintomas, self.condicion, self.fecha_prueba, self.tipo_prueba)
+        return '%s, %s, %s, %s' % (self.fecha_sintomas, self.estado_condicion, self.fecha_prueba, self.tipo_prueba)
 
 class Qrs(models.Model):
     nombre_usuario=models.CharField(max_length=200)
