@@ -29,11 +29,10 @@ urlpatterns = [
     path('monitoreo/control', monitoreo_views.control_sintomas, name="control"),
     path('monitoreo/login/', LoginView.as_view(template_name='monitoreo/login.html'), name='login'),    
     path('monitoreo/logout/', LogoutView.as_view(template_name='monitoreo/logout.html'), name='logout'),
-    path('monitoreo/lista_usuarios', monitoreo_views.lista_usuarios, name="Admi_listas"),
-    path('monitoreo/admi_edit_usuarios/<int:id>', monitoreo_views.admi_edit_usuarios, name="admi_edit_usuarios"),
-   # path('monitoreo/editarUsuario/<int:id>', monitoreo_views.editarUsuario, name="editarUsuario")
-
-   
+    path('monitoreo/lista_usuarios', monitoreo_views.lista_usuarios, name="lista_usuarios"),
+    path('monitoreo/admi_edit_usuarios/<int:usuario_id>/', monitoreo_views.admi_edit_usuarios, name="admi_edit_usuarios"),
+    path("monitoreo/monitoreoUsuario/<int:usuario_id>/", monitoreo_views.monitoreoUsuario, name="monitoreoUsuario"),
+    path("monitoreo/eliminarUsuario/<int:usuario_id>/", monitoreo_views.eliminarUsuario, name="eliminarUsuario"),   
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)

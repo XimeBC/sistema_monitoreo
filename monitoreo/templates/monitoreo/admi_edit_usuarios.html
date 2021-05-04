@@ -2,51 +2,14 @@
 
 {% block content %}
     {% csrf_token %}
-    <h1 class="display-4" align="justify" style="color:green"> Editar usuario</h1>
-      <form class="form" method="POST" >
-       {% csrf_token %}
-        <table class="table table-borderless table-dark">   
-            <tr>
-              <td>Nombres</td>
-               <td><input type"text" name="nombre" id="first_name" value="{{Usuarios.user.first_name}}"></td>
-            </tr>
-            <tr>
-              <td>Apellidos</td>
-              <td><input type"text" name="last_name" value="{{Usuarios.user.last_name}}"></td>
-            </tr>
-            <tr>
-              <td>Nombre Usuario</td>
-              <td><input type"text" name="username" value="{{Usuarios.user.username}}"></td>
-            </tr>
-            <tr>
-              <td>Correo</td>
-              <td><input type"text" name="email" value="{{user.email}}"></td>                    
-            </tr>
-            <tr>
-              <td>Contraseña</td>
-              <td><input type"text" name="password" value="{{Usuarios.clave}}"></td>
-            </tr>
-            <tr>
-              <td>Boleta</td>
-              <td><input type"text" name="boleta" value="{{Usuarios.boleta}}"></td>
-            </tr>
-            <tr>
-              <td>Fecha de nacimiento</td>
-              <td><input type"text" name="fecha_nacimiento" value="{{Usuarios.fecha_nacimiento}}"></td>
-            </tr>
-            <tr>
-              <td>Tipo de usuario</td>
-              <td><input type"text" name="id_tipo" value="{{Usuarios.id_tipo}}"></td>
-            </tr>
-        </table>
-           
-        <a href="{% url 'editarUsuario' Usuarios.id%}"> Editar</a>
-        <button type="submit" href="{% url 'editarUsuario' Usuarios.id %}">Guardar</button> | <a href="{% url 'Admi_listas' %}"> Regresar </a>
-        {% if messages %}
-          {% for editarUsuario in messages %} 
-             <h1 align="justify" style="color:green"> {{editarUsuario}}</h1>
-          {% endfor %}
-        {% endif %}
-      </form>
+<form class="form" method="POST">
+    <div  align="right">
+        {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" >Editar</button>
+      
+    </div>
+</form>
+
 {% endblock %}
   

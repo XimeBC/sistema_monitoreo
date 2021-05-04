@@ -1,0 +1,17 @@
+{% extends "monitoreo/layout.html" %}
+<!--Diseño general-->
+{% block content %}
+
+<form class="form" method="POST">
+        <div  align="right">
+        <h1 class="display-4" align="justify" style="color:green"> Monitoreo De Sintomas del COVID-19</h1>
+        {% csrf_token %}
+        <h2 class="lead" align="center" style="color:red"> Hola {{Usuario.nombre_usuario}} </h2>
+        {% csrf_token %}
+                {{ formulario.as_p }}
+        
+        <button type="submit">Crear</button>
+    </div>
+</form> 
+
+{% endblock %}

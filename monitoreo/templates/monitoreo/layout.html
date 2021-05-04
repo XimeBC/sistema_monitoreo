@@ -29,8 +29,11 @@
             </li>
             {% if user.is_superuser == 1 %}
                 <li class="nav-item">
-                  <a class="nav-link" href="{% url 'Admi_listas' %}">Administrador</a>
+                  <a class="nav-link" href="{% url 'lista_usuarios' %}">Administrador</a>
                 </li>  
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url 'registro' %}">Registrar</a>
+                </li>
             {% endif %}
           </ul>
           </div>
