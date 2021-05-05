@@ -16,7 +16,6 @@ def usuario(request):
     return render(request,'monitoreo/usuario/usuario.html', context)
 
 def control_sintomas(request):
-    print(request.user.id)
     control = Control_usuarios.objects.filter(user_id=request.user.id)
     context={
         'historicos' : control
@@ -64,6 +63,13 @@ def lista_usuarios(request):
     }
     return render(request,'monitoreo/listausuarios.html', context)
 
+def usuariosrestringidos(request):
+    usuario = Usuarios.objects.all()
+    context = {
+        'usuarios' : usuario
+    }
+    return render(request,'monitoreo/usuariosrestringidos.html', context)
+
 def admi_edit_usuarios(request, usuario_id):
     editar = Usuarios.objects.get(id=usuario_id)
     if request.method == "POST":
@@ -88,8 +94,8 @@ def admi_edit_usuarios(request, usuario_id):
             user.last_name=request.POST['apellido']
             if editar.clave != "":
                 user.set_password(request.POST['clave'])
-            if editar.estado != request.POST['estado']:
-                user.is_active=request.POST['estado']
+            #if editar.estado != request.POST['estado']:
+            #    user.is_active=request.POST['estado']
             user.email=request.POST['email']
             user.save()
             messages.success(request,  "Usuario editado correctamente.")

@@ -9,6 +9,7 @@
               <th scope="col">#</th>
               <th scope="col">Nombres</th>
               <th scope="col">Apellidos</th>
+              <th scope="col">CURP</th>
               <th scope="col">Nombre Usuario</th>
               <th scope="col">Correo</th>
               <th scope="col">Fecha de registro</th>
@@ -26,6 +27,7 @@
             <td>{{forloop.counter}}</td>
             <td>{{usuario.user.first_name}}</td>
             <td>{{usuario.user.last_name}}</td>
+            <td>{{usuario.curp}}</td>
             <td>{{usuario.user.username}}</td>
             <td>{{usuario.email}}</td>
             <td>{{usuario.user.date_joined}}</td>
@@ -48,6 +50,8 @@
                   Invitado
                 {% endif %}
             </td>
+            <td>{{usuario.estado}}</td>
+          {% if usuario.estado == 1%}
             <td>
               <button><a href="{% url 'admi_edit_usuarios' usuario.id %}">Editar</a></button>
             </td>
@@ -57,6 +61,7 @@
             <td>
               <button><a href="{% url 'eliminarUsuario' usuario.id %}">Eliminar</a></button>
             </td>
+          {% endif %}
           {% endfor %}
         </tbody>
     {% endif %}

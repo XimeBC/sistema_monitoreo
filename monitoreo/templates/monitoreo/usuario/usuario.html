@@ -3,53 +3,55 @@
 {% block content %}
   {% csrf_token %}
     {% if user.is_authenticated %}
-    <div class="align-content-lg-center">
-      <h1> Información, {{ user.username }}.</h1>
-    </div>
-      <div class="card">
-    
-        <div class="row">
-          <div class="col-md-2">
-            <p> Nombre: {{ user.first_name }}</p>
-          </div>
-          <div class="col-md-2">
-            <p> Apellidos: {{ user.last_name }}</p>
-          </div>
-          <div class="col-md-2">
-            <p> Email: {{ user.email }}</p>
-          </div>
-          <div class="col-md-2">
-            <p> Boleta: {{ usuario.boleta }}</p>
-          </div>
-          <div class="col-md-2">  
-            <p> Fecha de nacimiento: {{ usuario.fecha_nacimiento }}</p>
-          </div>
-          <div class="col-md-2">  
-            <p> Tipo de usuario: 
-              {% if usuario.id_tipo == 1 %}
-                Estudiante
-              {% endif %}
-              {% if usuario.id_tipo == 2 %}
-                Docente
-              {% endif %}
-              {% if usuario.id_tipo == 3 %}
-                Administrador
-              {% endif %}
-              {% if usuario.id_tipo == 4 %}
-                Invitado
-              {% endif %}
-            </p>
-          </div>
+      {% if usuario.estado == 1 %} 
+        <div class="align-content-lg-center">
+          <h1> Información, {{ user.username }}.</h1>
         </div>
-      </div>
-      
-       
-      <div class="align-content-lg-center">
-        <img src={{qr.url.url}}>
-        <h1>  Gracias por iniciar sesion. </h1>
-      </div>
- 
+          <div class="card">
+        
+            <div class="row">
+              <div class="col-md-2">
+                <p> Nombre: {{ user.first_name }}</p>
+              </div>
+              <div class="col-md-2">
+                <p> Apellidos: {{ user.last_name }}</p>
+              </div>
+              <div class="col-md-2">
+                <p> Email: {{ user.email }}</p>
+              </div>
+              <div class="col-md-2">
+                <p> Boleta: {{ usuario.boleta }}</p>
+              </div>
+              <div class="col-md-2">  
+                <p> Fecha de nacimiento: {{ usuario.fecha_nacimiento }}</p>
+              </div>
+              <div class="col-md-2">  
+                <p> Tipo de usuario: 
+                  {% if usuario.id_tipo == 1 %}
+                    Estudiante
+                  {% endif %}
+                  {% if usuario.id_tipo == 2 %}
+                    Docente
+                  {% endif %}
+                  {% if usuario.id_tipo == 3 %}
+                    Administrador
+                  {% endif %}
+                  {% if usuario.id_tipo == 4 %}
+                    Invitado
+                  {% endif %}
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="align-content-lg-center">
+            <img src={{qr.url.url}}>
+            <h1>  Gracias por iniciar sesion. </h1>
+          </div>
+      {% else %}
+        <h1> POR FAVOR Ve con el administrador para activar tu cuenta</h1>
+      {% endif %}
+    
     {% else %}
-      <p> POR FAVOR Inicia sesion.</p>
+      <h1> POR FAVOR Inicia sesion.</h1>
     {% endif %}
 {% endblock %}
