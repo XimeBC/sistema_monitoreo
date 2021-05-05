@@ -7,16 +7,16 @@ from django.contrib.auth.models import User
 
 
 class Usuarios(models.Model):
-    curp = models.CharField(max_length=200)
+    curp = models.CharField(max_length=200,unique=True)
     nombre = models.CharField(max_length=200)
     apellido = models.CharField(max_length=200)
-    boleta = models.CharField(max_length=200, default='Invitado')
-    nombre_usuario = models.CharField(max_length=200)
+    boleta = models.CharField(max_length=200, default='Invitado', unique=True)
+    nombre_usuario = models.CharField(max_length=200, unique=True)
     clave = models.CharField(max_length=200 )
     fecha_nacimiento = models.DateField(max_length=200)
     user = models.OneToOneField(User, on_delete=models.CASCADE, null=True)
     id_tipo = models.IntegerField( null=False, blank=False, default=1)
-    email = models.CharField( max_length=200, default='NULL')
+    email = models.CharField( max_length=200, default='NULL',  unique=True)
     estado = models.IntegerField(null=False, blank=False, default=1)
     def __str__(self):
         return '%s, %s, %s, %s, %s, %s, %s, %s, %s, %s' % (self.curp,self.user, self.id_tipo, self.nombre, self.apellido, self.boleta, self.nombre_usuario, self.fecha_nacimiento, self.clave, self.email)
@@ -31,7 +31,8 @@ class Control_usuarios(models.Model):
         return '%s, %s, %s, %s' % (self.nombre_usuario, self.fecha_hora_registro, self.oxigenacion, self.temperatura)
 
 class Restringidos(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE, null=True)
+    user = models.ForeignKey(User,on_delete=models.CASCADE,null=True)
+    nombre_usuario=models.CharField(max_length=200, default='null')
     fecha_sintomas = models.CharField(max_length=200)
     estado_condicion = models.CharField(max_length=200)
     fecha_prueba = models.DateField(max_length=200)
@@ -42,7 +43,7 @@ class Restringidos(models.Model):
 
 class Qrs(models.Model):
     nombre_usuario=models.CharField(max_length=200)
-    url= models.ImageField(upload_to='qr_codes', blank=True)
+    url= models.ImageField(upload_to='qr_codes', blank=True,  unique=True)
     user = models.OneToOneField(User, on_delete=models.CASCADE, null=True)
     def __str__(self):
         return str( self.nombre_usuario )

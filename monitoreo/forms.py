@@ -3,7 +3,7 @@ from django.forms import ModelForm
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.contrib.auth import get_user_model
-from .models import Usuarios, Qrs, Tipos_usuario, Control_usuarios
+from .models import Usuarios, Qrs, Tipos_usuario, Control_usuarios, Restringidos
 
 
 class UserRegisterForm(UserCreationForm):
@@ -37,10 +37,7 @@ class AdmiForms(forms.ModelForm):
     boleta = forms.CharField(label='Boleta')
     nombre_usuario = forms.CharField(label='Nombre de usuario')
     clave = forms.CharField(label='contraseña', widget=forms.PasswordInput,required=False)
-    widgets = {
-                'fecha_nacimiento': forms.DateTimeInput(format="%a %b %d %H:%M",attrs={'readonly': 'readonly'}),
-            }
-    #fecha_nacimiento = forms.DateField(label='Fecha de Nacimiento (yyyy-mm-dd)',input_formats=["%Y-%m-%d"])
+    fecha_nacimiento = forms.DateField(label='Fecha de Nacimiento (yyyy-mm-dd)',input_formats=["%Y-%m-%d"])
     curp = forms.CharField(label='CURP')
     opciones = [
         (1, 'Estudiante'),
@@ -64,8 +61,20 @@ class formControlUsuarios(forms.ModelForm):
     temperatura = forms.CharField(max_length=200)
     oxigenacion = forms.CharField(max_length=200)
     nombre_usuario=forms.CharField(max_length=200,disabled=True)
-    fecha_hora_registro = forms.DateField(label='Fecha de Ingreso(yyyy-mm-dd)',input_formats=["%Y-%m-%d"])
+    fecha_hora_registro = forms.DateField(label='Fecha de(yyyy-mm-dd)',input_formats=["%Y-%m-%d"])
     class Meta:
         model = Control_usuarios
         fields = [ 'nombre_usuario','temperatura' , 'oxigenacion' , 'fecha_hora_registro']
         help_texts = {k:"" for k in fields}
+
+class formEstado(forms.ModelForm):
+    nombre_usuario = forms.CharField(max_length=200,disabled=True)
+    fecha_sintomas = forms.DateField(label='Fecha de(yyyy-mm-dd)',input_formats=["%Y-%m-%d"])
+    estado_condicion = forms.CharField(max_length=200)
+    fecha_prueba = forms.DateField(label='Fecha de(yyyy-mm-dd)',input_formats=["%Y-%m-%d"])
+    tipo_prueba = forms.CharField(max_length=200)
+    class Meta:
+        model = Restringidos
+        fields = ['nombre_usuario','fecha_sintomas','estado_condicion','fecha_prueba','tipo_prueba']
+        help_texts = {k:"" for k in fields}
+

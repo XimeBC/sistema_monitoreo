@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
-from .models import Usuarios, Control_usuarios, Qrs
-from .forms import UserRegisterForm, AdmiForms, formControlUsuarios
+from .models import Usuarios, Qrs, Restringidos, Control_usuarios
+from .forms import UserRegisterForm, AdmiForms, formControlUsuarios, formEstado
 from django.contrib import messages
 from websites.models import Website
 from django.contrib.auth.models import User
@@ -16,10 +16,12 @@ def usuario(request):
     return render(request,'monitoreo/usuario/usuario.html', context)
 
 def control_sintomas(request):
-    usuarios = Usuarios.objects.get(user_id=request.user.id)
-    control_sintomas = Control_usuarios.objects.get(username=request.nombre_usuarios)
-    return render(request,'monitoreo/usuario/control.html',
-    {'control_sintomas' : control_sintomas})
+    print(request.user.id)
+    control = Control_usuarios.objects.filter(user_id=request.user.id)
+    context={
+        'historicos' : control
+        }
+    return render(request,'monitoreo/usuario/control.html',context)
 
 def inicio(request):
     return render(request,'monitoreo/home.html')
@@ -31,10 +33,10 @@ def registro(request):
             form.save()
             user = User.objects.get(username=request.POST['username']).pk
             if request.POST['id_tipo'] == '4':
-                u = Usuarios(nombre=request.POST['first_name'],apellido=request.POST['last_name'],boleta='Invitado',nombre_usuario=request.POST['username'],clave=request.POST['password1'],fecha_nacimiento=request.POST['fecha_nacimiento'],id_tipo=request.POST['id_tipo'],user_id=user,curp=request.POST['curp'])
+                u = Usuarios(nombre=request.POST['first_name'],apellido=request.POST['last_name'],boleta='Invitado',nombre_usuario=request.POST['username'],clave=request.POST['password1'],fecha_nacimiento=request.POST['fecha_nacimiento'],id_tipo=request.POST['id_tipo'],user_id=user,curp=request.POST['curp'],email=request.POST['email'])
                 u.save()
             else:
-                u = Usuarios(nombre=request.POST['first_name'],apellido=request.POST['last_name'],boleta=request.POST['boleta'],nombre_usuario=request.POST['username'],clave=request.POST['password1'],fecha_nacimiento=request.POST['fecha_nacimiento'],id_tipo=request.POST['id_tipo'],user_id=user, curp=request.POST['curp'])
+                u = Usuarios(nombre=request.POST['first_name'],apellido=request.POST['last_name'],boleta=request.POST['boleta'],nombre_usuario=request.POST['username'],clave=request.POST['password1'],fecha_nacimiento=request.POST['fecha_nacimiento'],id_tipo=request.POST['id_tipo'],user_id=user, curp=request.POST['curp'],email=request.POST['email'])
                 u.save()
             cod= Qrs(nombre_usuario=request.POST['username'],user_id=user)
             cod.save()

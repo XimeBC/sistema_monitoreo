@@ -8,6 +8,7 @@
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <title>Monitoreo</title>
       {% load bootstrap4 %}
+      {% load widget_tweaks %}
       {% bootstrap_css %}
       
   </head>
@@ -25,7 +26,7 @@
               <a class="nav-link" href="{% url 'usuario' %}">Informacion</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="{% url 'inicio' %}">Historial</a>
+              <a class="nav-link" href="{% url 'control' %}">Historial</a>
             </li>
             {% if user.is_superuser == 1 %}
                 <li class="nav-item">
