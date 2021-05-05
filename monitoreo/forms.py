@@ -37,7 +37,10 @@ class AdmiForms(forms.ModelForm):
     boleta = forms.CharField(label='Boleta')
     nombre_usuario = forms.CharField(label='Nombre de usuario')
     clave = forms.CharField(label='contraseña', widget=forms.PasswordInput,required=False)
-    fecha_nacimiento = forms.DateField(label='Fecha de Nacimiento (yyyy-mm-dd)',input_formats=["%Y-%m-%d"])
+    widgets = {
+                'fecha_nacimiento': forms.DateTimeInput(format="%a %b %d %H:%M",attrs={'readonly': 'readonly'}),
+            }
+    #fecha_nacimiento = forms.DateField(label='Fecha de Nacimiento (yyyy-mm-dd)',input_formats=["%Y-%m-%d"])
     curp = forms.CharField(label='CURP')
     opciones = [
         (1, 'Estudiante'),
@@ -58,7 +61,11 @@ class AdmiForms(forms.ModelForm):
         help_texts = {k:"" for k in fields}
 
 class formControlUsuarios(forms.ModelForm):
+    temperatura = forms.CharField(max_length=200)
+    oxigenacion = forms.CharField(max_length=200)
+    nombre_usuario=forms.CharField(max_length=200,disabled=True)
+    fecha_hora_registro = forms.DateField(label='Fecha de Ingreso(yyyy-mm-dd)',input_formats=["%Y-%m-%d"])
     class Meta:
         model = Control_usuarios
-        fields = [ 'temperatura' , 'oxigeno' , 'fecha_hora_registro']
+        fields = [ 'nombre_usuario','temperatura' , 'oxigenacion' , 'fecha_hora_registro']
         help_texts = {k:"" for k in fields}

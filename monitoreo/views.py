@@ -16,7 +16,8 @@ def usuario(request):
     return render(request,'monitoreo/usuario/usuario.html', context)
 
 def control_sintomas(request):
-    control_sintomas = Control_usuarios.objects.all()
+    usuarios = Usuarios.objects.get(user_id=request.user.id)
+    control_sintomas = Control_usuarios.objects.get(username=request.nombre_usuarios)
     return render(request,'monitoreo/usuario/control.html',
     {'control_sintomas' : control_sintomas})
 
@@ -101,15 +102,23 @@ def admi_edit_usuarios(request, usuario_id):
 def monitoreoUsuario(request, usuario_id):
     usuario = Usuarios.objects.get(id=usuario_id)
     if request.method == "POST":
-        formulario = formControlUsuarios(request.POST, instance=usuario)
+        formulario = formControlUsuarios(request.POST, instance=usuario)  
+        user = User.objects.get(id=usuario.user_id)
         if formulario.is_valid():
-            formulario.nombre_usuario = request.POST['nombre_usuario']
-            formulario.oxigenacion=request.POST['oxigenacion']
-            formulario.temperatura=request.POST['temperatura']
-            formulario.fecha_hora_registro=request.POST['fecha_hora_registro']
-            formulario.save()
+            if (request.POST['temperatura'] < '39') and (request.POST['oxigenacion'] > '85'):
+                usuario.estado = 1
+                usuario.save()   
+                user.is_active = 1
+                user.save()
+            else:
+                usuario.estado = 0
+                usuario.save()
+                user.is_active = 0
+                user.save()
+            monitoreo= Control_usuarios(nombre_usuario=usuario.nombre_usuario,temperatura=request.POST['temperatura'],oxigenacion=request.POST['oxigenacion'],fecha_hora_registro=request.POST['fecha_hora_registro'],user_id=user.id)
+            monitoreo.save() 
             messages.success(request,  "Guardado")
-            return redirect('lista_usuarios' )
+            return redirect('lista_usuarios')
     else:
         formulario=formControlUsuarios(instance=usuario)
         context = {
@@ -119,7 +128,7 @@ def monitoreoUsuario(request, usuario_id):
 
 def eliminarUsuario(request, usuario_id):
     usuario = Usuarios.objects.get(id=usuario_id).delete
-    usuar=User.objects.get(id=usuario_id)
+    usuar=User.objects.get(id=user_id)
     usuario.delete()
     usuar.delete()
     return redirect('Admi_listas')

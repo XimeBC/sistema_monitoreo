@@ -23,11 +23,12 @@ class Usuarios(models.Model):
 
 class Control_usuarios(models.Model):
     temperatura = models.CharField(max_length=200)
-    oxigeno = models.CharField(max_length=200)
+    oxigenacion = models.CharField(max_length=200)
     nombre_usuario=models.CharField(max_length=200, default='null')
-    fecha_hora_registro = models.CharField(max_length=200)
+    user = models.ForeignKey(User,on_delete=models.CASCADE,null=True)
+    fecha_hora_registro = models.DateField(max_length=200)
     def __str__(self):
-        return '%s, %s, %s, %s' % (self.nombre_usuario, self.fecha_hora_registro, self.oxigeno, self.temperatura)
+        return '%s, %s, %s, %s' % (self.nombre_usuario, self.fecha_hora_registro, self.oxigenacion, self.temperatura)
 
 class Restringidos(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, null=True)
