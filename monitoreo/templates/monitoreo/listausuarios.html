@@ -14,15 +14,15 @@
               <th scope="col">Correo</th>
               <th scope="col">Fecha de registro</th>
               <th scope="col">Ultima sesión.</th>
-              <th scope="col">Contraseña</th>
               <th scope="col">Boleta</th>
               <th scope="col">Fecha de nacimiento</th>
               <th scope="col">Tipo de usuario</th>
+              <th scope="col">Estado</th>
 
             </tr>
           </thead>
         <tbody>
-          {% for usuario in usuarios %}
+        {% for usuario in usuarios %}
             <tr>
             <td>{{forloop.counter}}</td>
             <td>{{usuario.user.first_name}}</td>
@@ -32,7 +32,6 @@
             <td>{{usuario.email}}</td>
             <td>{{usuario.user.date_joined}}</td>
             <td>{{usuario.user.last_login}}</td>
-            <td>{{usuario.clave}}</td>
             <td>{{usuario.boleta}}</td>
             <td>{{usuario.fecha_nacimiento}}</td>
             
@@ -50,18 +49,28 @@
                   Invitado
                 {% endif %}
             </td>
-            <td>{{usuario.estado}}</td>
-          {% if usuario.estado == 1%}
             <td>
-              <button><a href="{% url 'admi_edit_usuarios' usuario.id %}">Editar</a></button>
+                 {% if usuario.estado == 1 %}
+                  Activo
+                {% endif %}
+                {% if usuario.estado == 0 %}
+                  Desactivado
+                {% endif %}
             </td>
             <td>
-              <button><a href="{% url 'monitoreoUsuario' usuario.id %}">Agregar</a></button>
+                <button><a href="{% url 'historialgenusuario' usuario.id %}">Historial </a></button>
             </td>
+            {% if usuario.estado == 1%}
+              <td>
+                <button><a href="{% url 'admi_edit_usuarios' usuario.id %}">Editar</a></button>
+              </td>
+              <td>
+                <button><a href="{% url 'monitoreoUsuario' usuario.id %}">Agregar</a></button>
+              </td>
+            {% endif %}
             <td>
-              <button><a href="{% url 'eliminarUsuario' usuario.id %}">Eliminar</a></button>
+                <button><a href="{% url 'eliminarUsuario' usuario.id %}">Eliminar</a></button>
             </td>
-          {% endif %}
           {% endfor %}
         </tbody>
     {% endif %}

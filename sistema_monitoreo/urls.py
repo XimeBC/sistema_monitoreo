@@ -33,7 +33,9 @@ urlpatterns = [
     path('monitoreo/usuariosrestringidos', monitoreo_views.usuariosrestringidos, name="usuariosrestringidos"),
     path('monitoreo/admi_edit_usuarios/<int:usuario_id>/', monitoreo_views.admi_edit_usuarios, name="admi_edit_usuarios"),
     path("monitoreo/monitoreoUsuario/<int:usuario_id>/", monitoreo_views.monitoreoUsuario, name="monitoreoUsuario"),
-    path("monitoreo/eliminarUsuario/<int:usuario_id>/", monitoreo_views.eliminarUsuario, name="eliminarUsuario"),   
+    path("monitoreo/eliminarUsuario/<int:usuario_id>/", monitoreo_views.eliminarUsuario, name="eliminarUsuario"), 
+    path("monitoreo/historialgenusuario/<int:usuario_id>/", monitoreo_views.historialgenusuario, name="historialgenusuario"),
+    path("monitoreo/formrestring/<int:usuario_id>/", monitoreo_views.formrestring, name="formrestring"),   
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)

@@ -29,7 +29,6 @@ class UserRegisterForm(UserCreationForm):
         fields = ['username' , 'password1' , 'password2' , 'first_name' , 'last_name', 'email', 'boleta', 'fecha_nacimiento', 'id_tipo', 'curp']
         help_texts = {k:"" for k in fields}
 
-
 class AdmiForms(forms.ModelForm):
     email = forms.EmailField(label='Correo electronico')
     apellido = forms.CharField(label='Apellidos')
@@ -70,7 +69,12 @@ class formControlUsuarios(forms.ModelForm):
 class formEstado(forms.ModelForm):
     nombre_usuario = forms.CharField(max_length=200,disabled=True)
     fecha_sintomas = forms.DateField(label='Fecha de(yyyy-mm-dd)',input_formats=["%Y-%m-%d"])
-    estado_condicion = forms.CharField(max_length=200)
+    casos = [
+        (1, 'Sospechoso'),
+        (2, 'Confirmado'),
+        (3, 'Negativo'),
+    ]
+    estado_condicion = forms.ChoiceField(label="Estado", widget=forms.Select(), choices=casos)
     fecha_prueba = forms.DateField(label='Fecha de(yyyy-mm-dd)',input_formats=["%Y-%m-%d"])
     tipo_prueba = forms.CharField(max_length=200)
     class Meta:

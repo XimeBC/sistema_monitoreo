@@ -3,7 +3,7 @@
 {% block content %}
     {% csrf_token %}
     {% if user.is_authenticated %}
-    <h1 class="display-4" align="justify" style="color:green"> Historial</h1>
+      <h1 class="display-4" align="justify" style="color:green"> Historial</h1>
         <table class="table table-borderless table-dark">
           <thead>
             <tr>
@@ -12,6 +12,7 @@
               <th scope="col">Temperatura</th>
               <th scope="col">Oxigenación</th>
               <th scope="col">Fecha de medición</th>
+
             </tr>
           </thead>
         <tbody>
@@ -24,7 +25,6 @@
             <td>{{historial.fecha_hora_registro}}</td>
           {% endfor %}
         </tbody>
-        
     <h1 class="display-4" align="justify" style="color:green"> Incidentes</h1>
       <table class="table table-borderless table-dark">
           <thead>

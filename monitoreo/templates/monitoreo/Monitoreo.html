@@ -3,14 +3,16 @@
 <!--Diseño general-->
 {% block content %}
 
-<form class="form" method="POST">
-    <div  align="right">
-        <h1 class="display-4" align="justify" style="color:green"> Monitoreo De Sintomas del COVID-19</h1>
+<div align="right">        
+    <form class="form" method="POST">
+        <div class="card bg-light mb-3" style="max-width: 20rem;" align="center">
+            <p class="bg-dark">
         {% csrf_token %}
                 {{ formulario.as_p }}
-        
+            </p>
         <button type="submit">Crear</button>
-    </div>
-</form> 
-
+        <button><a href="{% url 'lista_usuarios' %}">Cancelar</a></button>
+        </div>
+    </form> 
+</div>
 {% endblock %}

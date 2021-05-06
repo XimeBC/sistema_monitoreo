@@ -2,14 +2,17 @@
 {% load widget_tweaks %}
 {% block content %}
     {% csrf_token %}
-<form class="form" method="POST">
-    <div  align="right">
-        {% csrf_token %}
-            {{ form.as_p }}
-            <button type="submit" >Editar</button>
-      
-    </div>
-</form>
-
+<div align="right">        
+    <form class="form" method="POST">
+        <div class="card bg-light mb-3" style="max-width: 40rem;" align="center">
+            <p class="bg-dark">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit" class="btn btn-outline-success">Editar</button>
+                <button class="btn btn-outline-dark"><a href="{% url 'lista_usuarios' %}">Cancelar</a></button>
+            </p>
+        </div>
+    </form>
+</div>
 {% endblock %}
   

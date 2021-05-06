@@ -1,0 +1,18 @@
+{% extends "monitoreo/layout.html" %}
+{% load widget_tweaks %}
+{% block content %}
+    {% csrf_token %}
+<div align="right">
+    <form class="form" method="POST">
+        <div class="card bg-light mb-3" style="max-width: 20rem;" align="center">
+            <p class="bg-dark">
+                {% csrf_token %}
+                    {{ form.as_p }}
+                    <button type="submit" class="btn btn-outline-success">Guardar</button>
+                    <button class="btn btn-outline-dark"><a href="{% url 'lista_usuarios' %}">Cancelar</a></button>
+            </p>
+        </div>
+    </form>
+</div>
+{% endblock %}
+  

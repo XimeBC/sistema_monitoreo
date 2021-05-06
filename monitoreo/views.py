@@ -5,6 +5,7 @@ from django.contrib import messages
 from websites.models import Website
 from django.contrib.auth.models import User
 from django.contrib.auth import get_user_model
+from datetime import date 
 
 def usuario(request):
     usuario = Usuarios.objects.get(user_id=request.user.id)
@@ -17,10 +18,22 @@ def usuario(request):
 
 def control_sintomas(request):
     control = Control_usuarios.objects.filter(user_id=request.user.id)
+    rest = Restringidos.objects.filter(user_id=request.user.id)
     context={
-        'historicos' : control
+        'historicos' : control,
+        'monitoreos': rest
         }
     return render(request,'monitoreo/usuario/control.html',context)
+
+def historialgenusuario(request, usuario_id):
+    usuario = Usuarios.objects.filter(id=usuario_id)
+    control = Control_usuarios.objects.filter(user_id=usuario_id)
+    rest = Restringidos.objects.filter(user_id=usuario_id)
+    context={
+        'historicos' : control,
+        'monitoreos': rest
+        }
+    return render(request,'monitoreo/historialgenusuario.html',context)
 
 def inicio(request):
     return render(request,'monitoreo/home.html')
@@ -116,13 +129,16 @@ def monitoreoUsuario(request, usuario_id):
             if (request.POST['temperatura'] < '39') and (request.POST['oxigenacion'] > '85'):
                 usuario.estado = 1
                 usuario.save()   
-                user.is_active = 1
-                user.save()
+                #user.is_active = 1
+                #user.save()
             else:
+                control= Restringidos(nombre_usuario=usuario.nombre_usuario, estado_condicion=1 ,tipo_prueba='Sin información',fecha_prueba='2000-01-01',fecha_sintomas=request.POST['fecha_hora_registro'],user_id=user.id)
+                control.save() 
                 usuario.estado = 0
                 usuario.save()
-                user.is_active = 0
-                user.save()
+
+                #user.is_active = 0
+               # user.save()
             monitoreo= Control_usuarios(nombre_usuario=usuario.nombre_usuario,temperatura=request.POST['temperatura'],oxigenacion=request.POST['oxigenacion'],fecha_hora_registro=request.POST['fecha_hora_registro'],user_id=user.id)
             monitoreo.save() 
             messages.success(request,  "Guardado")
@@ -133,10 +149,57 @@ def monitoreoUsuario(request, usuario_id):
              'formulario':formulario
             }
         return render(request,'monitoreo/Monitoreo.html', context)
+        
+def formrestring(request, usuario_id):
+    usuario = Usuarios.objects.get(id=usuario_id)
+    print(usuario)
+    if request.method == "POST":
+        form = formEstado(request.POST, instance=usuario)  
+        if form.is_valid():
+            restringido= Restringidos.objects.get(user_id=usuario_id)
+            print('ahi')
+            if request.POST['estado_condicion'] == '3':
+                restringido.nombre_usuario=usuario.nombre_usuario
+                restringido.fecha_sintomas=request.POST['fecha_sintomas']
+                restringido.estado_condicion=request.POST['estado_condicion']
+                restringido.fecha_prueba=request.POST['fecha_prueba']
+                restringido.tipo_prueba=request.POST['tipo_prueba']
+                restringido.save() 
+                usuario.estado = 1
+                usuario.save()
+            if request.POST['estado_condicion'] == '2':
+                restringido.nombre_usuario=usuario.nombre_usuario
+                restringido.fecha_sintomas=request.POST['fecha_sintomas']
+                restringido.estado_condicion=request.POST['estado_condicion']
+                restringido.fecha_prueba=request.POST['fecha_prueba']
+                restringido.tipo_prueba=request.POST['tipo_prueba']
+                restringido.save() 
+                usuario.estado = 0
+                usuario.save()
+            if request.POST['estado_condicion'] == '1':
+                restringido.nombre_usuario=usuario.nombre_usuario
+                restringido.fecha_sintomas=request.POST['fecha_sintomas']
+                restringido.estado_condicion=request.POST['estado_condicion']
+                restringido.fecha_prueba=request.POST['fecha_prueba']
+                restringido.tipo_prueba=request.POST['tipo_prueba']
+                restringido.save() 
+                usuario.estado = 0
+                usuario.save()    
+            else:
+                form=formEstado(instance=usuario)
+        
+            messages.success(request,  "Guardado")
+            return redirect('usuariosrestringidos')
+    else:
+        form=formEstado(instance=usuario)
+        context = {
+             'form':form
+            }
+        return render(request,'monitoreo/formrestring.html', context)
 
 def eliminarUsuario(request, usuario_id):
-    usuario = Usuarios.objects.get(id=usuario_id).delete
-    usuar=User.objects.get(id=user_id)
+    usuario = Usuarios.objects.get(id=usuario_id)
+    usuar=User.objects.get(id=usuario_id)
     usuario.delete()
     usuar.delete()
     return redirect('Admi_listas')

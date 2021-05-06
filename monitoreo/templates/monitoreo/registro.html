@@ -2,12 +2,16 @@
 <!--Diseño general-->
 {% load widget_tweaks %}
 {% block content %}
-<form class="form" method="POST">
-    <div  align="right">
-        {% csrf_token %}
-            {{ form.as_p }}
-            <button type="submit">Crear</button>
-    </div>
-</form>
-
+<div align="right">        
+    <form class="form" method="POST">
+        <div class="card bg-light mb-3" style="max-width: 40rem;" align="center">
+            <p class="bg-dark">
+                {% csrf_token %}   
+                    {{ form.as_p }}
+                    <button type="submit" class="btn btn-outline-success">Crear</button>
+                    <button class="btn btn-outline-dark"><a href="{% url 'inicio' %}">Cancelar</a></button>
+            </p>
+        </div>
+    </form>
+</div>
 {% endblock %}
