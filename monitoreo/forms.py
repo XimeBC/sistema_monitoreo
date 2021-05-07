@@ -60,7 +60,7 @@ class formControlUsuarios(forms.ModelForm):
     temperatura = forms.CharField(max_length=200)
     oxigenacion = forms.CharField(max_length=200)
     nombre_usuario=forms.CharField(max_length=200,disabled=True)
-    fecha_hora_registro = forms.DateField(label='Fecha de(yyyy-mm-dd)',input_formats=["%Y-%m-%d"])
+    fecha_hora_registro = forms.DateField(label='Fecha de registro (yyyy-mm-dd)', input_formats=["%Y-%m-%d"])
     class Meta:
         model = Control_usuarios
         fields = [ 'nombre_usuario','temperatura' , 'oxigenacion' , 'fecha_hora_registro']
@@ -68,14 +68,14 @@ class formControlUsuarios(forms.ModelForm):
 
 class formEstado(forms.ModelForm):
     nombre_usuario = forms.CharField(max_length=200,disabled=True)
-    fecha_sintomas = forms.DateField(label='Fecha de(yyyy-mm-dd)',input_formats=["%Y-%m-%d"])
+    fecha_sintomas = forms.DateField(label='Fecha de inicio (yyyy-mm-dd)',input_formats=["%Y-%m-%d"])
     casos = [
         (1, 'Sospechoso'),
         (2, 'Confirmado'),
         (3, 'Negativo'),
     ]
     estado_condicion = forms.ChoiceField(label="Estado", widget=forms.Select(), choices=casos)
-    fecha_prueba = forms.DateField(label='Fecha de(yyyy-mm-dd)',input_formats=["%Y-%m-%d"])
+    fecha_prueba = forms.DateField(label='Fecha de prueba(yyyy-mm-dd)',input_formats=["%Y-%m-%d"])
     tipo_prueba = forms.CharField(max_length=200)
     class Meta:
         model = Restringidos

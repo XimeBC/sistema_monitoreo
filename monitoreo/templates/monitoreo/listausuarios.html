@@ -3,6 +3,8 @@
 {% block content %}
     {% csrf_token %}
     {% if user.is_authenticated %}
+      <h1 class="display-4" align="justify" style="color:green"> Usuarios</h1>
+       <font SIZE=3 color="silver"> 
         <table class="table table-borderless table-dark">
           <thead>
             <tr>
@@ -24,18 +26,18 @@
         <tbody>
         {% for usuario in usuarios %}
             <tr>
-            <td>{{forloop.counter}}</td>
-            <td>{{usuario.user.first_name}}</td>
-            <td>{{usuario.user.last_name}}</td>
-            <td>{{usuario.curp}}</td>
-            <td>{{usuario.user.username}}</td>
-            <td>{{usuario.email}}</td>
-            <td>{{usuario.user.date_joined}}</td>
-            <td>{{usuario.user.last_login}}</td>
-            <td>{{usuario.boleta}}</td>
-            <td>{{usuario.fecha_nacimiento}}</td>
+            <td class="align-middle">{{forloop.counter}}</td>
+            <td class="align-middle">{{usuario.user.first_name}}</td>
+            <td class="align-middle">{{usuario.user.last_name}}</td>
+            <td class="align-middle">{{usuario.curp}}</td>
+            <td class="align-middle">{{usuario.user.username}}</td>
+            <td class="align-middle">{{usuario.email}}</td>
+            <td class="align-middle">{{usuario.user.date_joined}}</td>
+            <td class="align-middle">{{usuario.user.last_login}}</td>
+            <td class="align-middle">{{usuario.boleta}}</td>
+            <td class="align-middle">{{usuario.fecha_nacimiento}}</td>
             
-            <td> 
+            <td class="align-middle"> 
                 {% if usuario.id_tipo == 1 %}
                   Estudiante
                 {% endif %}
@@ -49,7 +51,7 @@
                   Invitado
                 {% endif %}
             </td>
-            <td>
+            <td class="align-middle">
                  {% if usuario.estado == 1 %}
                   Activo
                 {% endif %}
@@ -58,20 +60,22 @@
                 {% endif %}
             </td>
             <td>
-                <button><a href="{% url 'historialgenusuario' usuario.id %}">Historial </a></button>
+                <button type="botton" class="btn btn-secondary" OnClick="location.href='{% url 'historialgenusuario' usuario.id %}'">Historial</button>
             </td>
             {% if usuario.estado == 1%}
               <td>
-                <button><a href="{% url 'admi_edit_usuarios' usuario.id %}">Editar</a></button>
+                <button type="botton" class="btn btn-success" OnClick="location.href='{% url 'admi_edit_usuarios' usuario.id %}'">Editar</button>
               </td>
               <td>
-                <button><a href="{% url 'monitoreoUsuario' usuario.id %}">Agregar</a></button>
+                <button type="botton" class="btn btn-info" OnClick="location.href='{% url 'monitoreoUsuario' usuario.id %}'">Agregar</button>
               </td>
             {% endif %}
             <td>
-                <button><a href="{% url 'eliminarUsuario' usuario.id %}">Eliminar</a></button>
+                <button type="botton" class="btn btn-danger" OnClick="location.href='{% url 'eliminarUsuario' usuario.id %}'">Eliminar</button>
             </td>
           {% endfor %}
         </tbody>
+      </table>
+    </font>
     {% endif %}
 {% endblock %}

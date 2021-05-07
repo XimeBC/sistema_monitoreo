@@ -3,6 +3,7 @@
 {% block content %}
     {% csrf_token %}
     {% if user.is_authenticated %}
+    <font SIZE=3 color="silver"> 
       <h1 class="display-4" align="justify" style="color:green"> Historial</h1>
         <table class="table table-borderless table-dark">
           <thead>
@@ -25,7 +26,10 @@
             <td>{{historial.fecha_hora_registro}}</td>
           {% endfor %}
         </tbody>
+      </table>
+    </font>
     <h1 class="display-4" align="justify" style="color:green"> Incidentes</h1>
+    <font SIZE=3 color="silver"> 
       <table class="table table-borderless table-dark">
           <thead>
             <tr>
@@ -44,11 +48,24 @@
             <td>{{forloop.counter}}</td>
             <td>{{monitoreo.nombre_usuario}}</td>
             <td>{{monitoreo.fecha_sintomas}}</td>
-            <td>{{monitoreo.estado_condicion}}</td>
+            <td>
+                {% if monitoreo.estado_condicion == 1 %}
+                  Sospechoso
+                {% endif %}
+                {% if monitoreo.estado_condicion == 2 %}
+                  Confirmado
+                {% endif %}
+                {% if monitoreo.estado_condicion == 3 %}
+                  Negativo
+                {% endif %}
+            </td>
             <td>{{monitoreo.fecha_prueba}}</td>
             <td>{{monitoreo.tipo_prueba}}</td>
           </tr>
         {% endfor %}
         </tbody>
-    {% endif %}
+     </table>
+  </font>
+ {% endif %}
+  
 {% endblock %}

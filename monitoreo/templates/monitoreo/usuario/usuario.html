@@ -5,10 +5,10 @@
     {% if user.is_authenticated %}
       {% if usuario.estado == 1 %} 
         <div class="align-content-lg-center">
-          <h1> Información, {{ user.username }}.</h1>
+          <h1 class="display-4" align="justify" style="color:green"> Información, {{ user.username }}.</h1>
         </div>
           <div class="card">
-        
+          <h5>
             <div class="row">
               <div class="col-md-2">
                 <p> CURP: {{ usuario.curp }}</p>
@@ -45,7 +45,9 @@
                 </p>
               </div>
             </div>
+        </h5>
           </div>
+          
           <div class="align-content-lg-center">
             <img src={{qr.url.url}}>
             <h1>  Gracias por iniciar sesion. </h1>

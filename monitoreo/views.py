@@ -156,33 +156,16 @@ def formrestring(request, usuario_id):
     if request.method == "POST":
         form = formEstado(request.POST, instance=usuario)  
         if form.is_valid():
-            restringido= Restringidos.objects.get(user_id=usuario_id)
             print('ahi')
+            restringido = Restringidos(nombre_usuario=usuario.nombre_usuario,fecha_sintomas=request.POST['fecha_sintomas'],estado_condicion=request.POST['estado_condicion'],fecha_prueba=request.POST['fecha_prueba'],tipo_prueba=request.POST['tipo_prueba'])
+            restringido.save() 
             if request.POST['estado_condicion'] == '3':
-                restringido.nombre_usuario=usuario.nombre_usuario
-                restringido.fecha_sintomas=request.POST['fecha_sintomas']
-                restringido.estado_condicion=request.POST['estado_condicion']
-                restringido.fecha_prueba=request.POST['fecha_prueba']
-                restringido.tipo_prueba=request.POST['tipo_prueba']
-                restringido.save() 
                 usuario.estado = 1
                 usuario.save()
             if request.POST['estado_condicion'] == '2':
-                restringido.nombre_usuario=usuario.nombre_usuario
-                restringido.fecha_sintomas=request.POST['fecha_sintomas']
-                restringido.estado_condicion=request.POST['estado_condicion']
-                restringido.fecha_prueba=request.POST['fecha_prueba']
-                restringido.tipo_prueba=request.POST['tipo_prueba']
-                restringido.save() 
                 usuario.estado = 0
                 usuario.save()
             if request.POST['estado_condicion'] == '1':
-                restringido.nombre_usuario=usuario.nombre_usuario
-                restringido.fecha_sintomas=request.POST['fecha_sintomas']
-                restringido.estado_condicion=request.POST['estado_condicion']
-                restringido.fecha_prueba=request.POST['fecha_prueba']
-                restringido.tipo_prueba=request.POST['tipo_prueba']
-                restringido.save() 
                 usuario.estado = 0
                 usuario.save()    
             else:
