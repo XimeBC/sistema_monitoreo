@@ -19,7 +19,7 @@ class Usuarios(models.Model):
     email = models.CharField( max_length=200, default='NULL',  unique=True)
     estado = models.IntegerField(null=False, blank=False, default=1)
     def __str__(self):
-        return '%s, %s, %s, %s, %s, %s, %s, %s, %s, %s' % (self.curp,self.user, self.id_tipo, self.nombre, self.apellido, self.boleta, self.nombre_usuario, self.fecha_nacimiento, self.clave, self.email)
+        return '%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s' % (self.estado, self.curp, self.user, self.id_tipo, self.nombre, self.apellido, self.boleta, self.nombre_usuario, self.fecha_nacimiento, self.clave, self.email)
 
 class Control_usuarios(models.Model):
     temperatura = models.CharField(max_length=200)
@@ -34,7 +34,7 @@ class Restringidos(models.Model):
     user = models.ForeignKey(User,on_delete=models.CASCADE,null=True)
     nombre_usuario=models.CharField(max_length=200, default='null')
     fecha_sintomas = models.CharField(max_length=200)
-    estado_condicion = models.CharField(max_length=200)
+    estado_condicion = models.IntegerField( null=False, blank=False, default=1)
     fecha_prueba = models.DateField(max_length=200)
     tipo_prueba = models.CharField(max_length=200)
 

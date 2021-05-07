@@ -1,81 +1,86 @@
 {% extends "monitoreo/layout.html" %}
 {% load widget_tweaks %}
 {% block content %}
-    {% csrf_token %}
-    {% if user.is_authenticated %}
+  {% csrf_token %}
+  {% if user.is_authenticated  %}
+    {% if user.is_superuser == 1 %}
       <h1 class="display-4" align="justify" style="color:green"> Usuarios</h1>
-       <font SIZE=3 color="silver"> 
-        <table class="table table-borderless table-dark">
-          <thead>
-            <tr>
-              <th scope="col">#</th>
-              <th scope="col">Nombres</th>
-              <th scope="col">Apellidos</th>
-              <th scope="col">CURP</th>
-              <th scope="col">Nombre Usuario</th>
-              <th scope="col">Correo</th>
-              <th scope="col">Fecha de registro</th>
-              <th scope="col">Ultima sesión.</th>
-              <th scope="col">Boleta</th>
-              <th scope="col">Fecha de nacimiento</th>
-              <th scope="col">Tipo de usuario</th>
-              <th scope="col">Estado</th>
-
-            </tr>
-          </thead>
-        <tbody>
-        {% for usuario in usuarios %}
-            <tr>
-            <td class="align-middle">{{forloop.counter}}</td>
-            <td class="align-middle">{{usuario.user.first_name}}</td>
-            <td class="align-middle">{{usuario.user.last_name}}</td>
-            <td class="align-middle">{{usuario.curp}}</td>
-            <td class="align-middle">{{usuario.user.username}}</td>
-            <td class="align-middle">{{usuario.email}}</td>
-            <td class="align-middle">{{usuario.user.date_joined}}</td>
-            <td class="align-middle">{{usuario.user.last_login}}</td>
-            <td class="align-middle">{{usuario.boleta}}</td>
-            <td class="align-middle">{{usuario.fecha_nacimiento}}</td>
-            
-            <td class="align-middle"> 
-                {% if usuario.id_tipo == 1 %}
-                  Estudiante
+        <font SIZE=3 color="silver"> 
+          <table class="table table-striped table-dark">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Nombres</th>
+                <th scope="col">Apellidos</th>
+                <th scope="col">CURP</th>
+                <th scope="col">Nombre Usuario</th>
+                <th scope="col">Correo</th>
+                <th scope="col">Fecha de registro</th>
+                <th scope="col">Ultima sesión.</th>
+                <th scope="col">Boleta</th>
+                <th scope="col">Fecha de nacimiento</th>
+                <th scope="col">Tipo de usuario</th>
+                <th scope="col">Estado</th>
+              </tr>
+            </thead>
+            <tbody>
+             {% for usuario in usuarios %}
+              <tr>
+                <td class="align-middle">{{forloop.counter}}</td>
+                <td class="align-middle">{{usuario.user.first_name}}</td>
+                <td class="align-middle">{{usuario.user.last_name}}</td>
+                <td class="align-middle">{{usuario.curp}}</td>
+                <td class="align-middle">{{usuario.user.username}}</td>
+                <td class="align-middle">{{usuario.email}}</td>
+                <td class="align-middle">{{usuario.user.date_joined}}</td>
+                <td class="align-middle">{{usuario.user.last_login}}</td>
+                <td class="align-middle">{{usuario.boleta}}</td>
+                <td class="align-middle">{{usuario.fecha_nacimiento}}</td>
+                <td class="align-middle"> 
+                    {% if usuario.id_tipo == 1 %}
+                      Estudiante
+                    {% endif %}
+                    {% if usuario.id_tipo == 2 %}
+                      Docente
+                    {% endif %}
+                    {% if usuario.id_tipo == 3 %}
+                      Administración
+                    {% endif %}
+                    {% if usuario.id_tipo == 4 %}
+                      Invitado
+                    {% endif %}
+                </td>
+                <td class="align-middle">
+                    {% if usuario.estado == 1 %}
+                      Activo
+                    {% endif %}
+                    {% if usuario.estado == 0 %}
+                      Desactivado
+                    {% endif %}
+                </td>
+                {% if usuario.estado == 1%}
+                  <td>
+                    <button type="botton" class="btn btn-success" OnClick="location.href='{% url 'admi_edit_usuarios' usuario.id %}'">Editar</button>
+                  </td>
+                  <td>
+                    <button type="botton" class="btn btn-info" OnClick="location.href='{% url 'monitoreoUsuario' usuario.id %}'">Agregar</button>
+                  </td>
                 {% endif %}
-                {% if usuario.id_tipo == 2 %}
-                  Docente
-                {% endif %}
-                {% if usuario.id_tipo == 3 %}
-                  Administración
-                {% endif %}
-                {% if usuario.id_tipo == 4 %}
-                  Invitado
-                {% endif %}
-            </td>
-            <td class="align-middle">
-                 {% if usuario.estado == 1 %}
-                  Activo
-                {% endif %}
-                {% if usuario.estado == 0 %}
-                  Desactivado
-                {% endif %}
-            </td>
-            <td>
-                <button type="botton" class="btn btn-secondary" OnClick="location.href='{% url 'historialgenusuario' usuario.id %}'">Historial</button>
-            </td>
-            {% if usuario.estado == 1%}
-              <td>
-                <button type="botton" class="btn btn-success" OnClick="location.href='{% url 'admi_edit_usuarios' usuario.id %}'">Editar</button>
-              </td>
-              <td>
-                <button type="botton" class="btn btn-info" OnClick="location.href='{% url 'monitoreoUsuario' usuario.id %}'">Agregar</button>
-              </td>
-            {% endif %}
-            <td>
-                <button type="botton" class="btn btn-danger" OnClick="location.href='{% url 'eliminarUsuario' usuario.id %}'">Eliminar</button>
-            </td>
-          {% endfor %}
-        </tbody>
-      </table>
-    </font>
+                <td>
+                    <button type="botton" class="btn btn-secondary" OnClick="location.href='{% url 'historialgenusuario' usuario.id %}'">Historial</button>
+                </td>
+                <td>
+                    <button type="botton" class="btn btn-danger" OnClick="location.href='{% url 'eliminarUsuario' usuario.id %}'">Eliminar</button>
+                </td>
+              </tr>
+             {% endfor %}
+            </tbody>
+          </table>
+        </font>
+    {% else %}
+      <h1 class="display-4" align="justify" style="color:green"> Error no eres administrador.</h1>
     {% endif %}
+  {% else %}
+    <h1 class="display-4" align="justify" style="color:green"> Inicia sesión. </h1>
+  {% endif %}
 {% endblock %}

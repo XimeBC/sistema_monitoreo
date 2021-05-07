@@ -5,58 +5,74 @@
     {% if user.is_authenticated %}
       {% if usuario.estado == 1 %} 
         <div class="align-content-lg-center">
-          <h1 class="display-4" align="justify" style="color:green"> Información, {{ user.username }}.</h1>
+          <h1 class="display-4" align="center" style="color:green"> Información Personal.</h1>
         </div>
-          <div class="card">
-          <h5>
-            <div class="row">
-              <div class="col-md-2">
-                <p> CURP: {{ usuario.curp }}</p>
-              </div>
-              <div class="col-md-2">
-                <p> Nombre: {{ user.first_name }}</p>
-              </div>
-              <div class="col-md-2">
-                <p> Apellidos: {{ user.last_name }}</p>
-              </div>
-              <div class="col-md-2">
-                <p> Email: {{ user.email }}</p>
-              </div>
-              <div class="col-md-2">
-                <p> Boleta: {{ usuario.boleta }}</p>
-              </div>
-              <div class="col-md-2">  
-                <p> Fecha de nacimiento: {{ usuario.fecha_nacimiento }}</p>
-              </div>
-              <div class="col-md-2">  
-                <p> Tipo de usuario: 
-                  {% if usuario.id_tipo == 1 %}
-                    Estudiante
-                  {% endif %}
-                  {% if usuario.id_tipo == 2 %}
-                    Docente
-                  {% endif %}
-                  {% if usuario.id_tipo == 3 %}
-                    Administrador
-                  {% endif %}
-                  {% if usuario.id_tipo == 4 %}
-                    Invitado
-                  {% endif %}
-                </p>
-              </div>
-            </div>
-        </h5>
+          <div class="align-content-lg-center"> 
+            <font SIZE=4 color="silver">
+              <table class="table table-striped table-dark">
+                <tbody> 
+                  <tr>
+                    <th>Nombre de usuario</th>
+                    <td>{{usuario.nombre_usuario}}</td>
+                  </tr>
+                  <tr>
+                    <th>CURP</th>
+                    <td>{{usuario.curp}}</td>
+                  </tr>
+                  <tr>
+                    <th>Nombre</th>
+                    <td>{{user.first_name}}</td>
+                  </tr>
+                  <tr>
+                    <th>Apellidos</th>
+                    <td>{{user.last_name}}</td>
+                  </tr>
+                  <tr>
+                    <th>Email</th>
+                    <td>{{user.email}}</td>
+                  </tr>
+                  <tr>
+                    <th>Boleta</th>
+                    <td>{{usuario.boleta}}</td>
+                  </tr>
+                  <tr>
+                    <th>Fecha de nacimiento</th>
+                    <td>{{usuario.fecha_nacimiento}}</td>
+                  </tr>
+                  <tr>
+                    <th>Tipo de usuario</th>
+                    <td>{% if usuario.id_tipo == 1 %}
+                          Estudiante
+                        {% endif %}
+                        {% if usuario.id_tipo == 2 %}
+                          Docente
+                        {% endif %}
+                        {% if usuario.id_tipo == 3 %}
+                          Administrador
+                        {% endif %}
+                        {% if usuario.id_tipo == 4 %}
+                          Invitado
+                        {% endif %}
+                     </td>
+                  </tr>
+                  <tr>
+                    <th>Email</th>
+                    <td>{{usuario.email}}</td>
+                  </tr>
+                </tbody>
+              </table>  
+            </font>
           </div>
-          
           <div class="align-content-lg-center">
             <img src={{qr.url.url}}>
             <h1>  Gracias por iniciar sesion. </h1>
           </div>
+      {% elif user.is_superuser == 1 and usuario.estado == 0 %}
+        <h1 class="display-4" align="center" style="color:green"> Por favor asista con otro administrador</h1>
       {% else %}
-        <h1> POR FAVOR Ve con el administrador para activar tu cuenta</h1>
+        <h1 class="display-4" align="center" style="color:green"> POR FAVOR Ve con el administrador para activar tu cuenta</h1>
       {% endif %}
-    
     {% else %}
-      <h1> POR FAVOR Inicia sesion.</h1>
+      <h1 class="display-4" align="center" style="color:green"> POR FAVOR Inicia sesion.</h1>
     {% endif %}
 {% endblock %}

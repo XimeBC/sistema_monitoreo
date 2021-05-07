@@ -13,52 +13,66 @@
       
   </head>
   <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <a class="navbar-brand" href="{% url 'inicio' %}">Monitoreo de Sintomas</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
-
         {% if user.is_authenticated %}
-          <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
-          <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-            <li class="nav-item active">
-              <a class="nav-link" href="{% url 'usuario' %}">Informacion</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="{% url 'control' %}">Historial</a>
-            </li>
-            {% if user.is_superuser == 1 %}
-                <li class="nav-item">
-                  <a class="nav-link" href="{% url 'lista_usuarios' %}">Administrador</a>
-                </li>  
-                <li class="nav-item">
-                  <a class="nav-link" href="{% url 'registro' %}">Registrar</a>
+          {% if user.is_superuser == 1 %}
+            <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+              <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                  <li class="nav-item">
+                    <a class="nav-link" href="{% url 'lista_usuarios' %}">Administrador</a>
+                  </li>  
+                  <li class="nav-item">
+                    <a class="nav-link" href="{% url 'usuariosrestringidos' %}">Restringidos</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="{% url 'registro' %}">Registrar</a>
+                  </li>
+              </ul>
+              <ul class="nav navbar-nav navbar-right">
+                <li class="navbar-text">
+                 <a class="nav-link" href="{% url 'usuario' %}">Informacion</a>
                 </li>
+                <li class="navbar-text">
+                 <a class="nav-link" href="{% url 'control' %}">Historial</a>
                 </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="{% url 'usuariosrestringidos' %}">Restringidos</a>
+                <li class="navbar-text">
+                  <a class="nav-link" href="{% url 'logout' %}">Cerrar Sesión</a>
                 </li>
-            {% endif %}
-          </ul>
-          </div>
-          
-          <span class="navbar-text">
-            <a class="nav-link" href="{% url 'logout' %}">Cerrar Sesión</a>
-          </span>
+              </ul>
+            </div>
+          {% else %}
+            <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+              <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                <li class="navbar-text">
+                  <a class="nav-link" href="{% url 'usuario' %}">Informacion</a>
+                </li>
+                <li class="navbar-text">
+                  <a class="nav-link" href="{% url 'control' %}">Historial</a>
+                </li>
+              </ul>
+              <ul class="nav navbar-nav navbar-right">
+                <li class="navbar-text">
+                  <a class="nav-link" href="{% url 'logout' %}">Cerrar Sesión</a>
+                </li>
+              </ul>
+            </div>
+          {% endif %}
         {% else %}
-        <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
-
-        <span class="navbar-text">
-          <a class="nav-link" href="{% url 'login' %}">Inicio Sesión</a>
-        </span>
-        
-        <span class="navbar-text">
-          <a class="nav-link" href="{% url 'registro' %}">Registro</a>
-        </span>
-        </div>      
-        {% endif %}
-      
+            <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+              <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                <li class="nav-item"> 
+                  <a class="nav-link" href="{% url 'login' %}">Inicio Sesión</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url 'registro' %}">Registro</a>
+                </li>
+              </ul>
+           </div>  
+          {% endif %}
     </nav>
 
     <div class="p-5 text-center bg-image" style="background-image: url(https://www.ipn.mx/assets/files/imageninstitucional/img/Logo%20IPN%2085%20aniversrio.jpg); height: 1100px;">

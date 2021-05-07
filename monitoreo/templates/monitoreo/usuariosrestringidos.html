@@ -1,6 +1,9 @@
 {% extends "monitoreo/layout.html" %}
 {% load widget_tweaks %}
 {% block content %}
+{% csrf_token %}
+  {% if user.is_authenticated  %}
+    {% if user.is_superuser == 1 %}
       <h1 class="display-4" align="justify" style="color:green"> Usuario restringidos </h1>
       <font SIZE=3 color="silver"> 
         <table class="table table-borderless table-dark">
@@ -12,32 +15,25 @@
               <th scope="col">CURP</th>
               <th scope="col">Nombre Usuario</th>
               <th scope="col">Correo</th>
-              <th scope="col">Fecha de registro</th>
-              <th scope="col">Ultima sesión.</th>
-              <th scope="col">Contraseña</th>
               <th scope="col">Boleta</th>
               <th scope="col">Fecha de nacimiento</th>
               <th scope="col">Tipo de usuario</th>
 
             </tr>
-        </thead>
-        <tbody>
+          </thead>
+          <tbody>
             {% for usuario in usuarios %}
                 {% if usuario.estado == 0 %}  
                     <tr>
                     <td>{{forloop.counter}}</td>
-                    <td>{{usuario.user.first_name}}</td>
-                    <td>{{usuario.user.last_name}}</td>
-                    <td>{{usuario.curp}}</td>
-                    <td>{{usuario.user.username}}</td>
-                    <td>{{usuario.email}}</td>
-                    <td>{{usuario.user.date_joined}}</td>
-                    <td>{{usuario.user.last_login}}</td>
-                    <td>{{usuario.clave}}</td>
-                    <td>{{usuario.boleta}}</td>
-                    <td>{{usuario.fecha_nacimiento}}</td>
-                    
-                    <td> 
+                    <td class="align-middle">{{usuario.user.first_name}}</td>
+                    <td class="align-middle">{{usuario.user.last_name}}</td>
+                    <td class="align-middle">{{usuario.curp}}</td>
+                    <td class="align-middle">{{usuario.user.username}}</td>
+                    <td class="align-middle">{{usuario.email}}</td>
+                    <td class="align-middle">{{usuario.boleta}}</td>
+                    <td class="align-middle">{{usuario.fecha_nacimiento}}</td>
+                    <td class="align-middle"> 
                         {% if usuario.id_tipo == 1 %}
                         Estudiante
                         {% endif %}
@@ -51,17 +47,21 @@
                         Invitado
                         {% endif %}
                     </td>
-                    <td>{{usuario.estado}}</td>
-                    <td>
+                    <td class="align-middle">
                     <button type="botton" class="btn btn-success" OnClick="location.href='{% url 'formrestring' usuario.id %}'">Activar</button>
                     </td>
-                    <td>
+                    <td class="align-middle">
                     <button type="botton" class="btn btn-danger" OnClick="location.href='{% url 'historialgenusuario' usuario.id %}'">Eliminar</button>
-          
                     </td>
                 {% endif %}
             {% endfor %}
-        </tbody>
-     </table>
-    </font>
+          </tbody>
+        </table>
+      </font>
+    {% else %}
+      <h1 class="display-4" align="justify" style="color:green"> Error no eres administrador.</h1>
+    {% endif %}
+  {% else %}
+    <h1 class="display-4" align="justify" style="color:green"> Inicia sesión. </h1>
+  {% endif %}
 {% endblock %}

@@ -78,7 +78,7 @@ WSGI_APPLICATION = 'sistema_monitoreo.wsgi.application'
 
 DATABASES = {
      'default': {
-         'ENGINE': 'django.db.backends.mysql', 
+        'ENGINE': 'django.db.backends.mysql', 
         'NAME': 'monitoreo_sintomas',                 
         'USER': 'root',                    
         'PASSWORD': '123456',                

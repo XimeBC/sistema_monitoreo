@@ -78,8 +78,10 @@ def lista_usuarios(request):
 
 def usuariosrestringidos(request):
     usuario = Usuarios.objects.all()
+    rest = Restringidos.objects.all()
     context = {
-        'usuarios' : usuario
+        'usuarios' : usuario,
+        'monitoreos': rest
     }
     return render(request,'monitoreo/usuariosrestringidos.html', context)
 
@@ -132,7 +134,7 @@ def monitoreoUsuario(request, usuario_id):
                 #user.is_active = 1
                 #user.save()
             else:
-                control= Restringidos(nombre_usuario=usuario.nombre_usuario, estado_condicion=1 ,tipo_prueba='Sin información',fecha_prueba='2000-01-01',fecha_sintomas=request.POST['fecha_hora_registro'],user_id=user.id)
+                control= Restringidos(nombre_usuario=usuario.nombre_usuario, estado_condicion=1 ,tipo_prueba='Sin prueba',fecha_prueba='2000-01-01',fecha_sintomas=request.POST['fecha_hora_registro'],user_id=user.id)
                 control.save() 
                 usuario.estado = 0
                 usuario.save()
@@ -152,12 +154,10 @@ def monitoreoUsuario(request, usuario_id):
         
 def formrestring(request, usuario_id):
     usuario = Usuarios.objects.get(id=usuario_id)
-    print(usuario)
     if request.method == "POST":
         form = formEstado(request.POST, instance=usuario)  
         if form.is_valid():
-            print('ahi')
-            restringido = Restringidos(nombre_usuario=usuario.nombre_usuario,fecha_sintomas=request.POST['fecha_sintomas'],estado_condicion=request.POST['estado_condicion'],fecha_prueba=request.POST['fecha_prueba'],tipo_prueba=request.POST['tipo_prueba'])
+            restringido = Restringidos(nombre_usuario=usuario.nombre_usuario,fecha_sintomas=request.POST['fecha_sintomas'],estado_condicion=request.POST['estado_condicion'],fecha_prueba=request.POST['fecha_prueba'],tipo_prueba=request.POST['tipo_prueba'], user_id=usuario.id)
             restringido.save() 
             if request.POST['estado_condicion'] == '3':
                 usuario.estado = 1
@@ -185,4 +185,4 @@ def eliminarUsuario(request, usuario_id):
     usuar=User.objects.get(id=usuario_id)
     usuario.delete()
     usuar.delete()
-    return redirect('Admi_listas')
+    return redirect('lista_usuarios')
