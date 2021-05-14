@@ -1,8 +1,70 @@
-{% extends 'monitoreo/layout.html' %}
-
+{% extends "monitoreo/layout.html" %}
+{% load widget_tweaks %}
 {% block content %}
-    {% for usuario in usuarios %}
-        Usuario: {{usuario}} creado <br>
-    {% endfor %}
-    
-{% endblock %}
+  {% csrf_token %}
+  {% if user.is_authenticated %}
+    <font SIZE=3 color="silver"> 
+        <h1 class="display-4" align="justify" style="color:green"> Historial</h1>
+        <table class="table table-striped table-dark">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Nombre Usuario</th>
+              <th scope="col">Temperatura</th>
+              <th scope="col">Oxigenación</th>
+              <th scope="col">Fecha de medición</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for historial in historicos %}
+              <tr>
+                <td>{{forloop.counter}}</td>
+                <td>{{historial.nombre_usuario}}</td>
+                <td>{{historial.temperatura}}</td>
+                <td>{{historial.oxigenacion}}</td>
+                <td>{{historial.fecha_hora_registro}}</td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>  
+        <h1 class="display-4" align="justify" style="color:green"> Incidentes</h1>
+        <table class="table table-borderless table-dark">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Nombre Usuario</th>
+                <th scope="col">Fecha de inicio de sintomas</th>
+                <th scope="col">Tipo de alerta</th>
+                <th scope="col">Fecha de prueba</th>
+                <th scope="col">Tipo de prueba</th>
+
+              </tr>
+            </thead>
+          <tbody>
+            {% for monitoreo in monitoreos %} 
+              <tr>
+                <td>{{forloop.counter}}</td>
+                <td>{{monitoreo.nombre_usuario}}</td>
+                <td>{{monitoreo.fecha_sintomas}}</td>
+                 <td>
+                  {% if monitoreo.estado_condicion == 1 %}
+                    Sospechoso
+                  {% endif %}
+                  {% if monitoreo.estado_condicion == 2 %}
+                    Confirmado
+                  {% endif %}
+                  {% if monitoreo.estado_condicion == 3 %}
+                    Negativo
+                  {% endif %}
+                </td>
+                <td>{{monitoreo.fecha_prueba}}</td>
+                <td>{{monitoreo.tipo_prueba}}</td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </font>
+  {% else %}
+    <h1 class="display-4" align="justify" style="color:green"> Inicia sesión. </h1>
+  {% endif %}
+  {% endblock %}

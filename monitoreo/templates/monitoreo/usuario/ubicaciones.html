@@ -1,8 +1,9 @@
 {% extends 'monitoreo/layout.html' %}
-
+{% load widget_tweaks %}
 {% block content %}
+  <font SIZE=3 color="silver"> 
     {% for usuario in usuarios %}
         Usuario: {{usuario}} creado <br>
     {% endfor %}
-    
+  </font>  
 {% endblock %}

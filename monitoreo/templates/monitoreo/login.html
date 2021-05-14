@@ -1,12 +1,21 @@
 {% extends 'monitoreo/layout.html' %}
+{% load widget_tweaks %}
  {% block content %}
- 
-
-    <form class="form" method="post">
-        {% csrf_token %}
-        {{ form.as_p}}
-        <button type="submit" id="submit">Inicio</button>
-    </form>
-
-
- {% endblock %}
+<font SIZE=5 color="black"> 
+  <div align="center">       
+      <form class="form" method="POST">
+        <div class="card bg-light mb-3" style="max-width: 35rem;" align="right">
+           <h1 class="display-4" align="center" style="color:green"> Inicio sesión</h1>
+            <div class="form-group"> 
+              <p class="bg-dark">
+                {% csrf_token %}
+                {{ form.as_p}}
+                <button type="submit" class="btn btn-success" style="margin-center: 10px" id="submit">Inicio</button>
+                <button type="reset" class="btn btn-outline-dark" style="margin-center: 10px"  OnClick="location.href='{% url 'inicio' %}'">Cancelar</button>
+              </p>
+            </div>
+          </div>
+        </form> 
+    </div>
+</font>
+{% endblock %}

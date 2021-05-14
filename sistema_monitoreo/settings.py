@@ -9,12 +9,11 @@ https://docs.djangoproject.com/en/3.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
-
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
-
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
@@ -39,7 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'monitoreo.apps.MonitoreoConfig',
     'bootstrap4',
-    'qr_code',
+    'websites',
+    'widget_tweaks',
     
 ]
 MIDDLEWARE = [
@@ -57,7 +57,7 @@ ROOT_URLCONF = 'sistema_monitoreo.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -78,7 +78,7 @@ WSGI_APPLICATION = 'sistema_monitoreo.wsgi.application'
 
 DATABASES = {
      'default': {
-         'ENGINE': 'django.db.backends.mysql', 
+        'ENGINE': 'django.db.backends.mysql', 
         'NAME': 'monitoreo_sintomas',                 
         'USER': 'root',                    
         'PASSWORD': '123456',                
@@ -127,6 +127,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), "media_root")
 
 LOGIN_REDIRECT_URL = 'usuario'
 

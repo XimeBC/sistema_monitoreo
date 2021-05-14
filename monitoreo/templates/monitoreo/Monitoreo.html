@@ -1,0 +1,31 @@
+{% extends "monitoreo/layout.html" %}
+{% load widget_tweaks %}
+<!--Diseño general-->
+{% block content %}
+ {% csrf_token %}
+  {% if user.is_authenticated  %}
+    {% if user.is_superuser == 1 %}
+      <font SIZE=4 color="black"> 
+        <div align="center">       
+            <form class="form" method="POST">
+              <div class="card bg-light mb-3" style="max-width: 35rem;" align="right">
+                <h1 class="display-4" align="center" style="color:green"> Monitoreo </h1>
+                  <div class="form-group"> 
+                    <p class="bg-dark">
+                          {% csrf_token %}
+                          {{ formulario.as_p }}
+                      <button type="submit" class="btn btn-success" style="margin-center: 5px">Crear</button>
+                      <button type="reset" class="btn btn-dark" style="margin-left: 2.5px"  OnClick="location.href='{% url 'lista_usuarios' %}'">Cancelar</a></button> 
+                    </p>
+                  </div>
+                </div>
+              </form> 
+          </div>
+      </font>
+    {% else %}
+      <h1 class="display-4" align="justify" style="color:green"> Error no eres administrador.</h1>
+    {% endif %}
+  {% else %}
+    <h1 class="display-4" align="justify" style="color:green"> Inicia sesión. </h1>
+  {% endif %}
+{% endblock %}
